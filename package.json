@@ -1,5 +1,6 @@
 {
   "name": "neatflix",
+  "description": "Explore what to see tonight!",
   "version": "0.1.0",
   "private": true,
   "scripts": {
