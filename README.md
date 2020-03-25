@@ -1,6 +1,6 @@
 # neatflix
 
-Explore what to see tonight!
+Explore what to watch tonight!
 
 ## Project setup
 

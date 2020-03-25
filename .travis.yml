@@ -1,0 +1,17 @@
+language: node_js
+
+node_js:
+  - 'stable'
+
+before_script:
+  - yarn
+
+script:
+  - yarn lint
+  - yarn test:unit
+  - cypress install
+  - yarn test:e2e
+
+cache:
+  directories:
+    - node_modules
