@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import axios from "axios";
 
 export default axios.create({
