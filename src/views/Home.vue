@@ -1,25 +1,23 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
     <div>
-      <p v-for="movie in movies" :key="movie.id">{{ movie }}</p>
+      <Card v-for="movie in movies" :key="movie.id" :movie="movie" />
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
 import MDB from "@/api/MDB";
+import Card from "@/components/Card";
 
 export default {
   name: "Home",
   components: {
-    HelloWorld
+    Card
   },
   data: () => ({
-    movies: ""
+    movies: String
   }),
   created() {
     this.loadData();
