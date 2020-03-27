@@ -1,13 +1,15 @@
 <template>
-  <div class="movie-card">
+  <div class="card">
     <h1>{{title}}</h1>
-    <img :src="posterPath" :alt="title + ' poster'" />
+    <router-link :to="'/movie/'+title">
+      <img :src="posterPath" :alt="title + ' poster'" />
+    </router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: "MovieCard",
+  name: "Card",
   props: ["movie"],
   data() {
     return {

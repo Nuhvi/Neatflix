@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div>
-      <MovieCard v-for="movie in movies" :key="movie.id" :movie="movie" />
+      <Card v-for="movie in movies" :key="movie.id" :movie="movie" />
     </div>
   </div>
 </template>
@@ -9,12 +9,12 @@
 <script>
 // @ is an alias to /src
 import MDB from "@/api/MDB";
-import MovieCard from "@/components/MovieCard";
+import Card from "@/components/Card";
 
 export default {
   name: "Home",
   components: {
-    MovieCard
+    Card
   },
   data: () => ({
     movies: String
