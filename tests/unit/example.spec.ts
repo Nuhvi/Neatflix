@@ -1,12 +1,12 @@
-import { shallowMount } from '@vue/test-utils';
-import HelloWorld from '@/components/HelloWorld.vue';
+import { shallowMount } from "@vue/test-utils";
+import MovieCard from "@/components/MovieCard.vue";
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg },
+describe("HelloWorld.vue", () => {
+  it("renders props.msg when passed", () => {
+    const movieData = { title: "movie title" };
+    const wrapper = shallowMount(MovieCard, {
+      propsData: { movieData }
     });
-    expect(wrapper.text()).toMatch(msg);
+    expect(wrapper.text()).toMatch(movieData.title);
   });
 });
