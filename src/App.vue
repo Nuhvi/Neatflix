@@ -12,17 +12,21 @@
 @import "assets/base.scss";
 
 #app {
+  position: relative;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: #151515;
 
   min-height: 100%;
-  padding: 1em;
 }
 
 #nav {
+  position: absolute;
+  z-index: 999;
+  width: 100%;
   padding: 30px;
 
   a {

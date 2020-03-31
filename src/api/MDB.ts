@@ -12,8 +12,10 @@ export default (() => {
   };
 
   const discover = () => api.get("discover/movie");
+  const getMovie = (id: string) => api.get(`movie/${id}`);
 
   return {
-    discover
+    discover,
+    getMovie
   };
 })();
