@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <div>
-      <Card v-for="movie in movies" :key="movie.id" :movie="movie" />
+      <List>
+        <Card v-for="movie in movies" :key="movie.id" :movie="movie" />
+      </List>
     </div>
   </div>
 </template>
@@ -10,11 +12,13 @@
 // @ is an alias to /src
 import MDB from "@/api/MDB";
 import Card from "@/components/Card";
+import List from "@/components/List";
 
 export default {
   name: "Home",
   components: {
-    Card
+    Card,
+    List
   },
   data: () => ({
     movies: String
@@ -24,7 +28,7 @@ export default {
   },
   methods: {
     loadData: async function() {
-      const res = await MDB.discover();
+      const res = await MDB.discoverMovies();
       this.movies = res.data.results;
     }
   }

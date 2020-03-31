@@ -11,9 +11,13 @@ export default (() => {
     get: (url: string) => axios.get(url, config)
   };
 
-  const discover = () => api.get("discover/movie");
+  const discoverMovies = () => api.get("discover/movie");
+  const getMovie = (id: string) => api.get(`movie/${id}`);
+  const getMovieRecommendations = (id: string) => api.get(`movie/${id}/recommendations`);
 
   return {
-    discover
+    discoverMovies,
+    getMovie,
+    getMovieRecommendations
   };
 })();
