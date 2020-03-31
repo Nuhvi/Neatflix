@@ -10,7 +10,12 @@ body {
 div,
 article,
 section,
+header,
 main,
 aside {
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
 }
