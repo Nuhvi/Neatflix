@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     loadData: async function() {
-      const res = await MDB.discover();
+      const res = await MDB.discoverMovies();
       this.movies = res.data.results;
     }
   }

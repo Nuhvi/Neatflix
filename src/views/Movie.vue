@@ -1,15 +1,23 @@
 <template>
-  <div class="movie_page">
-    <img :src="backdropPath" :alt="movie.title + ` backdrop`" />
-
-    <!-- <figcaption>
-        <p>{{movie}}</p>
-    </figcaption>-->
+  <div>
+    <main class="movie_page">
+      <img :src="backdropPath" :alt="movie.title + ` backdrop`" />
+      <div class="overlay">
+        <section>
+          <h1>{{movie.title}}</h1>
+          <h2>{{movie.tagline}}</h2>
+          <p>{{movie.overview}}</p>
+          <p>{{movie}}</p>
+        </section>
+      </div>
+    </main>
+    <aside></aside>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .movie_page {
+  position: relative;
   height: 100vh;
   color: white;
 
@@ -18,6 +26,31 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: 50% 0;
+    filter: brightness(0.6);
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 4rem;
+
+    section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 1rem;
+      text-align: left;
+
+      h1,
+      h2 {
+        text-transform: uppercase;
+      }
+      h1 {
+        font-size: 3em;
+      }
+    }
   }
 }
 </style>
@@ -27,6 +60,7 @@ import MDB from "@/api/MDB";
 
 export default {
   name: "Movie",
+
   data: function() {
     return {
       movie: {},
