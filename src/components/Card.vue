@@ -1,9 +1,9 @@
 <template>
-  <router-link :to="`/movie/${id}/${title.replace(/\s/g, '_')}`">
+  <router-link class="card" :to="`/movie/${id}/${title.replace(/\s/g, '_')}`">
     <img :src="posterPath" :alt="title + ' poster'" />
-    <figcaption>
+    <!-- <figcaption>
       <h2>{{title}}</h2>
-    </figcaption>
+    </figcaption>-->
   </router-link>
 </template>
 
@@ -21,14 +21,14 @@ export default {
 };
 </script>
 
-<style lang='scss'>
-a {
+<style lang='scss' >
+.card {
   display: inline-block;
 
   img {
     width: 100%;
     display: block;
-    border-radius: 0.5rem;
+    border-radius: 0.5em;
   }
 
   figcaption,
@@ -38,10 +38,10 @@ a {
 
   &:hover {
     transform: scale(1.1);
-    box-shadow: 0rem 2rem 5rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0em 2em 5em rgba(0, 0, 0, 0.2);
 
     img {
-      border-radius: 0.5rem 0.5rem 0 0;
+      border-radius: 0.5em 0.5em 0 0;
     }
 
     figcaption {

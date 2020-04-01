@@ -14,10 +14,10 @@ export default {
 .list {
   display: grid;
 
-  grid-template-columns: repeat(auto-fit, minmax(5rem, 20rem));
+  grid-template-columns: repeat(auto-fit, minmax(5em, 20em));
   justify-content: space-evenly;
   align-content: space-between;
-  padding: 4rem 0;
-  gap: 4rem 2rem;
+  padding: 4em 0;
+  gap: 4em 2em;
 }
 </style>
