@@ -1,12 +1,16 @@
 <template>
   <div class="home">
-    <div>
-      <List>
-        <Card v-for="movie in movies" :key="movie.id" :movie="movie" />
-      </List>
-    </div>
+    <List>
+      <Card v-for="movie in movies" :key="movie.id" :movie="movie" />
+    </List>
   </div>
 </template>
+
+<style >
+.home {
+  padding-top: 8em;
+}
+</style>
 
 <script>
 // @ is an alias to /src
