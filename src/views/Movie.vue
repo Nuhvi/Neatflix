@@ -76,8 +76,6 @@ export default {
       this.movie = res.data;
       this.backdropPath =
         "https://image.tmdb.org/t/p/original" + res.data.backdrop_path;
-
-      console.log(this.movie);
     }
   }
 };
