@@ -1,23 +1,59 @@
 <template>
   <section class="list">
-    <slot></slot>
+    <Heading>{{title}}</Heading>
+    <div class="list-items">
+      <Card v-for="item in items" :key="item.id" :item="item" :type="type" />
+    </div>
   </section>
 </template>
 
 <script>
+import Heading from "@/components/Heading";
+import Card from "@/components/Card";
+
 export default {
-  name: "List"
+  name: "List",
+  components: {
+    Card,
+    Heading
+  },
+  props: {
+    title: String,
+    items: Array,
+    type: String
+  }
 };
 </script>
 
 <style lang="scss">
 .list {
-  display: grid;
+  max-width: 1280px;
+  margin: auto;
+  padding: 1.5em 1em;
+}
 
-  grid-template-columns: repeat(auto-fit, minmax(5rem, 20rem));
-  justify-content: space-evenly;
+.list-items {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
   align-content: space-between;
-  padding: 4rem 0;
-  gap: 4rem 2rem;
+  grid-gap: 2em;
+
+  @media screen and (min-width: 400px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0;
+  }
+
+  @media screen and (min-width: 600px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (min-width: 960px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media screen and (min-width: 1280px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
 </style>

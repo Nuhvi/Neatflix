@@ -35,12 +35,12 @@
     bottom: 0;
     width: 100%;
     height: 100%;
-    padding-top: 4rem;
+    padding-top: 4em;
 
     section {
       max-width: 1200px;
       margin: auto;
-      padding: 0 1rem;
+      padding: 0 1em;
       text-align: left;
 
       h1,
@@ -76,8 +76,6 @@ export default {
       this.movie = res.data;
       this.backdropPath =
         "https://image.tmdb.org/t/p/original" + res.data.backdrop_path;
-
-      console.log(this.movie);
     }
   }
 };
