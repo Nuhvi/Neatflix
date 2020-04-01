@@ -19,10 +19,11 @@ export default {
 <style lang="scss">
 @import "assets/base.scss";
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap");
 
 #app {
   position: relative;
-  font-family: "Bebas Neue", Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -31,5 +32,10 @@ export default {
 
   min-height: 100%;
   font-size: 16px;
+
+  h1,
+  h2 {
+    font-family: "Bebas Neue", Helvetica, Arial, sans-serif;
+  }
 }
 </style>
