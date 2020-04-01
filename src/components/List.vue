@@ -2,20 +2,25 @@
   <section class="list">
     <Heading>{{title}}</Heading>
     <div class="list-items">
-      <slot></slot>
+      <Card v-for="item in items" :key="item.id" :item="item" :type="type" />
     </div>
   </section>
 </template>
 
 <script>
 import Heading from "@/components/Heading";
+import Card from "@/components/Card";
+
 export default {
   name: "List",
   components: {
+    Card,
     Heading
   },
   props: {
-    title: String
+    title: String,
+    items: Array,
+    type: String
   }
 };
 </script>

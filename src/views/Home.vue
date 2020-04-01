@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <List title="Popular movies">
-      <Card v-for="movie in movies" :key="movie.id" :movie="movie" />
-    </List>
+    <List title="trending" :items="trending" type="movie"></List>
+    <List title="Popular movies" :items="popularMovies" type="movie"></List>
+    <List title="Popular Tv Shows" :items="popularTV" type="tv"></List>
   </div>
 </template>
 
@@ -15,25 +15,29 @@
 <script>
 // @ is an alias to /src
 import MDB from "@/api/MDB";
-import Card from "@/components/Card";
 import List from "@/components/List";
 
 export default {
   name: "Home",
   components: {
-    Card,
     List
   },
   data: () => ({
-    movies: String
+    popularMovies: [],
+    popularTV: [],
+    trending: []
   }),
   created() {
     this.loadData();
   },
   methods: {
     loadData: async function() {
-      const res = await MDB.discoverMovies();
-      this.movies = res.data.results;
+      const resMovies = await MDB.getPopularMovies();
+      this.popularMovies = resMovies.data.results.slice(0, 6);
+      const resTV = await MDB.getPopularTV();
+      this.popularTV = resTV.data.results.slice(0, 6);
+      const resTrending = await MDB.getTrending();
+      this.trending = resTrending.data.results.slice(0, 6);
     }
   }
 };

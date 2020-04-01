@@ -14,10 +14,16 @@ export default (() => {
   const discoverMovies = () => api.get("discover/movie");
   const getMovie = (id: string) => api.get(`movie/${id}`);
   const getMovieRecommendations = (id: string) => api.get(`movie/${id}/recommendations`);
+  const getPopularMovies = () => api.get("movie/popular");
+  const getPopularTV = () => api.get("/tv/popular");
+  const getTrending = () => api.get("trending/tv/day");
 
   return {
     discoverMovies,
     getMovie,
-    getMovieRecommendations
+    getMovieRecommendations,
+    getPopularMovies,
+    getPopularTV,
+    getTrending
   };
 })();

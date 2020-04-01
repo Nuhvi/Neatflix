@@ -1,5 +1,5 @@
 <template>
-  <router-link class="card" :to="`/movie/${id}/${title.replace(/\s/g, '_')}`">
+  <router-link class="card" :to="`/${type}/${id}/${title.replace(/\s/g, '_')}`">
     <img :src="posterPath" :alt="title + ' poster'" />
     <h3>{{title}}</h3>
   </router-link>
@@ -8,12 +8,13 @@
 <script>
 export default {
   name: "Card",
-  props: ["movie"],
+  props: ["item", "type"],
   data() {
+    this.item.title = this.item.title || this.item.original_name;
     return {
-      id: this.movie.id,
-      title: this.movie.title.match(/^[^\(:]+/)[0],
-      posterPath: "https://image.tmdb.org/t/p/w300" + this.movie.poster_path
+      id: this.item.id,
+      title: this.item.title.match(/^[^\(:]+/)[0],
+      posterPath: "https://image.tmdb.org/t/p/w300" + this.item.poster_path
     };
   }
 };
