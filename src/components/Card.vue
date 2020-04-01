@@ -1,9 +1,7 @@
 <template>
   <router-link class="card" :to="`/movie/${id}/${title.replace(/\s/g, '_')}`">
     <img :src="posterPath" :alt="title + ' poster'" />
-    <!-- <figcaption>
-      <h2>{{title}}</h2>
-    </figcaption>-->
+    <h3>{{title}}</h3>
   </router-link>
 </template>
 
@@ -22,29 +20,50 @@ export default {
 </script>
 
 <style lang='scss' >
+@mixin pop-card {
+  box-shadow: 0rem 1em 2em rgba(0, 0, 0, 1);
+}
+
 .card {
-  display: inline-block;
+  position: relative;
+
+  transition: all 100ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+
+  h3 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+  }
 
   img {
+    @include pop-card;
     width: 100%;
     display: block;
+    border-radius: 0.5em;
   }
 
   figcaption,
   h2 {
     margin: 0;
   }
+}
 
-  &:hover {
-    transform: scale(1.1);
-    box-shadow: 0em 2em 5em rgba(0, 0, 0, 0.2);
-
+@media screen and (min-width: 400px) {
+  .card {
     img {
-      border-radius: 0.5em;
+      border-radius: 0;
+      box-shadow: none;
+      filter: brightness(0.75);
     }
+    &:hover {
+      z-index: 9999999;
+      transform: scale(1.1);
 
-    figcaption {
-      background: red;
+      img {
+        @include pop-card;
+        filter: brightness(1);
+      }
     }
   }
 }
