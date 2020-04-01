@@ -28,7 +28,6 @@ export default {
   img {
     width: 100%;
     display: block;
-    border-radius: 0.5em;
   }
 
   figcaption,
@@ -41,7 +40,7 @@ export default {
     box-shadow: 0em 2em 5em rgba(0, 0, 0, 0.2);
 
     img {
-      border-radius: 0.5em 0.5em 0 0;
+      border-radius: 0.5em;
     }
 
     figcaption {
