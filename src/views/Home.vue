@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <List>
+    <List title="Popular movies">
       <Card v-for="movie in movies" :key="movie.id" :movie="movie" />
     </List>
   </div>
