@@ -2,11 +2,11 @@
   <header>
     <div class="container">
       <router-link to="/" class="logo">
-        <h1>Neatflix</h1>
+        <img src="@/assets/Neatflix.svg" alt="Neatflix" />
       </router-link>
       <div id="nav">
-        <router-link to="/">Home</router-link>|
-        <router-link to="/movies">Movies</router-link>|
+        <router-link to="/">Home</router-link>
+        <router-link to="/movies">Movies</router-link>
         <router-link to="/tv">Series</router-link>
       </div>
       <a class="placeholder">user</a>
@@ -32,46 +32,55 @@ header {
 
     position: relative;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1280px;
     margin: auto;
 
-    padding: 3em 5em;
+    padding: 3em 1em;
 
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 160px auto 160px;
     align-items: center;
+
+    .logo {
+      display: flex;
+      justify-content: left;
+      font-size: 1.2em;
+
+      img {
+        width: 6em;
+      }
+    }
+
+    #nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      a {
+        color: inherit;
+        font-size: 1.2em;
+        padding: 0 0.4em;
+
+        &:hover,
+        &.router-link-exact-active {
+          color: rgb(207, 207, 207);
+        }
+      }
+    }
   }
 }
 
-.logo {
-  margin: 0;
-  color: #ff000d;
-
-  h1 {
-    letter-spacing: 0.1em;
-    margin: 0;
-  }
-}
-
-#nav {
-  z-index: -1;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  a {
-    color: inherit;
-    font-size: 1.2em;
-    padding: 0 0.4em;
-
-    &:hover,
-    &.router-link-exact-active {
-      color: rgb(207, 207, 207);
+@media screen and (max-width: 600px) {
+  header {
+    .container {
+      grid-template-columns: 1fr;
+      .logo {
+        justify-content: center;
+      }
+      #nav,
+      .placeholder {
+        display: none;
+      }
     }
   }
 }
