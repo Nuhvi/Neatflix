@@ -1,11 +1,11 @@
 <template>
   <router-link
     class="card"
-    v-bind:class="{ standalone: isStandalone, hoverable:hoverable }"
+    v-bind:class="{ standalone: isStandalone, hoverable: hoverable }"
     :to="`/${itemType}/${id}/${title.replace(/\s/g, '_')}`"
   >
     <img :src="posterPath" :alt="title + ' poster'" />
-    <h3>{{title}}</h3>
+    <h3>{{ title }}</h3>
   </router-link>
 </template>
 
@@ -29,10 +29,9 @@ export default {
 };
 </script>
 
-<style lang='scss' >
+<style lang="scss">
 .card {
   position: relative;
-
   transition: all 100ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 
   h3 {
@@ -46,7 +45,6 @@ export default {
     width: 100%;
     display: block;
     box-shadow: none;
-    filter: brightness(0.75);
   }
 
   figcaption,
@@ -55,6 +53,9 @@ export default {
   }
 
   &.hoverable {
+    img {
+      filter: brightness(0.75);
+    }
     &:hover {
       z-index: 9999999;
       transform: scale(1.1);
