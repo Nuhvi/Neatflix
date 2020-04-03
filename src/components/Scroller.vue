@@ -3,7 +3,7 @@
     <Heading>{{ title }}</Heading>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="item in items" :key="item.id">
-        <Card :item="item" />
+        <Card :item="item" standalone hoverable />
       </swiper-slide>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
@@ -33,7 +33,8 @@ export default {
     return {
       swiperOption: {
         lazy: true,
-        loop: true,
+        loop: false,
+        spaceBetween: 10,
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
@@ -60,14 +61,60 @@ export default {
 
 <style lang="scss">
 .list {
-  max-width: 1280px;
+  max-width: $xl;
   margin: auto;
   padding: 1.5em 1em;
 }
-.swiper {
-  --swiper-navigation-size: 2em;
+
+/* Customize Swiper overflow */
+.swiper-container {
+  overflow: visible;
 }
 
+.swiper-slide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
+  &-active {
+    opacity: 1;
+    visibility: visible;
+
+    @media screen and (min-width: $sm) {
+      & + .swiper-slide {
+        opacity: 1;
+        visibility: visible;
+
+        @media screen and (min-width: $md) {
+          & + .swiper-slide {
+            opacity: 1;
+            visibility: visible;
+
+            @media screen and (min-width: $lg) {
+              & + .swiper-slide {
+                opacity: 1;
+                visibility: visible;
+
+                & + .swiper-slide {
+                  opacity: 1;
+                  visibility: visible;
+
+                  @media screen and (min-width: $xl) {
+                    & + .swiper-slide {
+                      opacity: 1;
+                      visibility: visible;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Customize Swiper buttons */
 .swiper-button-next,
 .swiper-button-prev {
   width: 2.5em;
@@ -76,7 +123,8 @@ export default {
   left: 0;
 
   &::after {
-    color: rgba(243, 243, 243, 0.616);
+    color: rgba(243, 243, 243, 0.6);
+    font-size: 2em;
   }
 }
 .swiper-button-next {
