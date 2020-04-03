@@ -1,11 +1,17 @@
 <template>
-  <h2>
-    <slot />
-  </h2>
+  <transition
+    appear
+    appear-class="appear"
+    appear-to-class="appear-to"
+    appear-active-class="appear-active"
+  >
+    <h2>
+      <slot />
+    </h2>
+  </transition>
 </template>
 
-
-  <script>
+<script>
 export default {
   name: "Heading",
   props: {
@@ -30,15 +36,29 @@ h2 {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-@media screen and (min-width: 400px) {
+@media screen and (min-width: $sm) {
   h2 {
     font-size: 4em;
   }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: $md) {
   h2 {
     font-size: 5em;
   }
+}
+
+.appear-active {
+  transition: all 0.5s ease;
+}
+
+.appear {
+  opacity: 0;
+  transform: translatey(-5px);
+}
+
+.appear-to {
+  opacity: 1;
+  transform: translatey(0);
 }
 </style>

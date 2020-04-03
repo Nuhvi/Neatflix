@@ -16,7 +16,7 @@ export default (() => {
   const getMovieRecommendations = (id: string) => api.get(`movie/${id}/recommendations`);
   const getPopularMovies = () => api.get("movie/popular");
   const getPopularTV = () => api.get("/tv/popular");
-  const getTrending = () => api.get("trending/tv/day");
+  const getTrending = () => api.get("trending/all/day");
 
   return {
     discoverMovies,

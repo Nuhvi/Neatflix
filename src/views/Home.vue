@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <List title="trending" :items="trending" type="movie"></List>
-    <List title="Popular movies" :items="popularMovies" type="movie"></List>
-    <List title="Popular Tv Shows" :items="popularTV" type="tv"></List>
+    <Scroller title="trending" :items="trending" type="movie"></Scroller>
+    <Scroller title="Popular movies" :items="popularMovies" type="movie"></Scroller>
+    <Scroller title="Popular Tv Shows" :items="popularTV" type="tv"></Scroller>
   </div>
 </template>
 
@@ -15,12 +15,12 @@
 <script>
 // @ is an alias to /src
 import MDB from "@/api/MDB";
-import List from "@/components/List";
+import Scroller from "@/components/Scroller";
 
 export default {
   name: "Home",
   components: {
-    List
+    Scroller
   },
   data: () => ({
     popularMovies: [],
@@ -33,11 +33,11 @@ export default {
   methods: {
     loadData: async function() {
       const resMovies = await MDB.getPopularMovies();
-      this.popularMovies = resMovies.data.results.slice(0, 6);
+      this.popularMovies = resMovies.data.results;
       const resTV = await MDB.getPopularTV();
-      this.popularTV = resTV.data.results.slice(0, 6);
+      this.popularTV = resTV.data.results;
       const resTrending = await MDB.getTrending();
-      this.trending = resTrending.data.results.slice(0, 6);
+      this.trending = resTrending.data.results;
     }
   }
 };
