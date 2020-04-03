@@ -3,7 +3,7 @@
     <Heading>{{ title }}</Heading>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="item in items" :key="item.id">
-        <Card :item="item" />
+        <Card :item="item" detailed hoverable />
       </swiper-slide>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
@@ -83,12 +83,9 @@ $slide: ".swiper-slide";
   position: relative;
   opacity: 0;
   visibility: hidden;
-  overflow: hidden;
   z-index: 1;
 
-  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out,
-    transform 0.1s ease-in-out, border-radius 0.1s ease-in-out,
-    z-index 0.1s ease-in-out;
+  transition: z-index 0.1s ease-in-out;
 
   &-active {
     opacity: 1;
@@ -107,13 +104,8 @@ $slide: ".swiper-slide";
     }
   }
 
-  @media screen and (min-width: $sm) {
-    &:hover {
-      z-index: 999999;
-      transform: scale(1.1);
-      border-radius: 0.5em;
-      box-shadow: 0rem 1em 2em rgba(0, 0, 0, 1);
-    }
+  &:hover {
+    z-index: 999999;
   }
 }
 

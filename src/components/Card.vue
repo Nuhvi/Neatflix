@@ -1,16 +1,17 @@
 <template>
   <router-link
     class="card"
-    v-bind:class="{ expandable: expandable }"
+    v-bind:class="{ detailed: detailed, hoverable: hoverable ,lightenable:lightenable}"
     :to="`/${mediaType}/${id}/${title.replace(/\s/g, '_')}`"
   >
     <figure>
       <img :src="posterPath" :alt="title + ' poster'" />
-
-      <figcaption>
-        <h3>{{ title }}</h3>
-        <p>{{item.date}}</p>
-      </figcaption>
+      <div class="overlay">
+        <figcaption>
+          <h3>{{ title }}</h3>
+          <p>{{item.release_date || item.first_air_date}}</p>
+        </figcaption>
+      </div>
     </figure>
   </router-link>
 </template>
@@ -20,12 +21,12 @@ export default {
   name: "Card",
   props: {
     item: {},
-    expandable: Boolean
+    hoverable: Boolean,
+    detailed: Boolean,
+    lightenable: Boolean
   },
   data() {
     this.item.title = this.item.title || this.item.original_name;
-    this.item.date = this.first_air_date || this.first_air_date;
-    console.log(this.item);
     return {
       id: this.item.id,
       title: this.item.title.match(/^[^\(:]+/)[0],
@@ -40,49 +41,95 @@ export default {
 <style lang="scss" scoped>
 .card {
   display: block;
-  padding-top: 150%;
 
   figure {
-    position: absolute;
-    width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
     margin: 0;
+    position: relative;
+    padding-top: 150%;
 
     img {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      display: block;
-      box-shadow: none;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      transition: all 0.1s ease-in-out;
+      visibility: hidden;
     }
 
     figcaption {
       position: absolute;
       width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
+      bottom: 0;
 
-      color: white;
+      padding: 0.5em 1em;
+      padding-top: 5em;
 
-      transition: all 0.1s ease-in-out;
+      color: rgba(255, 255, 255, 0.85);
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0) 100%
+      );
 
-      visibility: hidden;
-      opacity: 0;
+      font-size: 0.8em;
+      text-align: left;
+
+      h3,
+      p {
+        margin: 0;
+      }
 
       h3 {
         font-weight: normal;
       }
+      p {
+        font-size: 0.8em;
+        opacity: 0.5;
+      }
     }
   }
 
-  &.expandable {
+  &.detailed {
     &:hover {
-      figcaption {
-        opacity: 1;
+      .overlay {
         visibility: visible;
-        background: rgba(0, 0, 0, 0.452);
+        opacity: 1;
+      }
+    }
+  }
+
+  &.hoverable {
+    overflow: hidden;
+    transition: all 0.1s ease-in-out;
+
+    @media screen and (min-width: $sm) {
+      &:hover {
+        z-index: 999999;
+        transform: scale(1.1);
+        border-radius: 0.5em;
+        box-shadow: 0rem 1em 2em rgba(0, 0, 0, 1);
+      }
+    }
+  }
+
+  &.lightenable {
+    opacity: 0.7;
+
+    @media screen and (min-width: $sm) {
+      &:hover {
+        opacity: 1;
       }
     }
   }
