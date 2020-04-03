@@ -86,7 +86,7 @@ $slide: ".swiper-slide";
   overflow: hidden;
   z-index: 1;
 
-  transition: all 200ms ease-in-out, visibility 200ms ease-in-out,
+  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out,
     transform 0.1s ease-in-out, border-radius 0.1s ease-in-out,
     z-index 0.1s ease-in-out;
 
