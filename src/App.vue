@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "assets/base.scss";
+@import "@/assets/scss/base.scss";
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap");
