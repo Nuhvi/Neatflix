@@ -32,7 +32,7 @@ header {
 
     position: relative;
     width: 100%;
-    max-width: 1280px;
+    max-width: $xl;
     margin: auto;
 
     padding: 3em 1em;
@@ -70,7 +70,7 @@ header {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: $md) {
   header {
     .container {
       grid-template-columns: 1fr;

@@ -70,7 +70,7 @@ export default {
 .swiper-container {
   overflow: visible;
 }
-
+$slide: ".swiper-slide";
 .swiper-slide {
   opacity: 0;
   visibility: hidden;
@@ -79,35 +79,21 @@ export default {
     opacity: 1;
     visibility: visible;
 
-    @media screen and (min-width: $sm) {
-      & + .swiper-slide {
-        opacity: 1;
-        visibility: visible;
+    $breakpoints: (
+      $sm: 1,
+      $md: 2,
+      $lg: 4,
+      $xl: 5
+    );
 
-        @media screen and (min-width: $md) {
-          & + .swiper-slide {
+    @each $breakingpoint, $additionalSlidesNo in $breakpoints {
+      @media screen and (min-width: $breakingpoint) {
+        @for $i from 1 through $additionalSlidesNo {
+          & + #{$slide} {
             opacity: 1;
             visibility: visible;
-
-            @media screen and (min-width: $lg) {
-              & + .swiper-slide {
-                opacity: 1;
-                visibility: visible;
-
-                & + .swiper-slide {
-                  opacity: 1;
-                  visibility: visible;
-
-                  @media screen and (min-width: $xl) {
-                    & + .swiper-slide {
-                      opacity: 1;
-                      visibility: visible;
-                    }
-                  }
-                }
-              }
-            }
           }
+          $slide: "#{$slide} + .swiper-slide";
         }
       }
     }
