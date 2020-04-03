@@ -3,7 +3,7 @@
     <Heading>{{ title }}</Heading>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="item in items" :key="item.id">
-        <Card :item="item" standalone hoverable />
+        <Card :item="item" />
       </swiper-slide>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
@@ -34,7 +34,7 @@ export default {
       swiperOption: {
         lazy: true,
         loop: false,
-        spaceBetween: 10,
+        spaceBetween: 0,
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
@@ -67,27 +67,35 @@ export default {
 }
 
 /* Customize Swiper overflow */
+$additionalSlides: (
+  $sm: 1,
+  $md: 2,
+  $lg: 4,
+  $xl: 5
+);
+
 .swiper-container {
   overflow: visible;
 }
+
 $slide: ".swiper-slide";
 .swiper-slide {
+  position: relative;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
+  overflow: hidden;
+  z-index: 1;
+
+  transition: all 200ms ease-in-out, visibility 200ms ease-in-out,
+    transform 0.1s ease-in-out, border-radius 0.1s ease-in-out,
+    z-index 0.1s ease-in-out;
+
   &-active {
     opacity: 1;
     visibility: visible;
 
-    $breakpoints: (
-      $sm: 1,
-      $md: 2,
-      $lg: 4,
-      $xl: 5
-    );
-
-    @each $breakingpoint, $additionalSlidesNo in $breakpoints {
-      @media screen and (min-width: $breakingpoint) {
+    @each $breakingPoint, $additionalSlidesNo in $additionalSlides {
+      @media screen and (min-width: $breakingPoint) {
         @for $i from 1 through $additionalSlidesNo {
           & + #{$slide} {
             opacity: 1;
@@ -96,6 +104,15 @@ $slide: ".swiper-slide";
           $slide: "#{$slide} + .swiper-slide";
         }
       }
+    }
+  }
+
+  @media screen and (min-width: $sm) {
+    &:hover {
+      z-index: 999999;
+      transform: scale(1.1);
+      border-radius: 0.5em;
+      box-shadow: 0rem 1em 2em rgba(0, 0, 0, 1);
     }
   }
 }

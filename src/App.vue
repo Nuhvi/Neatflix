@@ -43,7 +43,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #9b9a9d;
+  color: $app-color;
   background-color: $app-bg;
 
   min-height: 100%;

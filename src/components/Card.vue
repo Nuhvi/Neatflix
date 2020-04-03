@@ -1,77 +1,89 @@
 <template>
   <router-link
     class="card"
-    v-bind:class="{ standalone: isStandalone, hoverable: hoverable }"
-    :to="`/${itemType}/${id}/${title.replace(/\s/g, '_')}`"
+    v-bind:class="{ expandable: expandable }"
+    :to="`/${mediaType}/${id}/${title.replace(/\s/g, '_')}`"
   >
-    <img :src="posterPath" :alt="title + ' poster'" />
-    <h3>{{ title }}</h3>
+    <figure>
+      <img :src="posterPath" :alt="title + ' poster'" />
+
+      <figcaption>
+        <h3>{{ title }}</h3>
+        <p>{{item.date}}</p>
+      </figcaption>
+    </figure>
   </router-link>
 </template>
 
-<script>
+<script >
 export default {
   name: "Card",
   props: {
     item: {},
-    itemType: String,
-    isStandalone: Boolean,
-    hoverable: Boolean
+    expandable: Boolean
   },
   data() {
     this.item.title = this.item.title || this.item.original_name;
+    this.item.date = this.first_air_date || this.first_air_date;
+    console.log(this.item);
     return {
       id: this.item.id,
       title: this.item.title.match(/^[^\(:]+/)[0],
-      posterPath: "https://image.tmdb.org/t/p/w300" + this.item.poster_path
+      mediaType: "movie",
+      posterPath: "https://image.tmdb.org/t/p/w300" + this.item.poster_path,
+      backdropPath: "https://image.tmdb.org/t/p/w300" + this.item.backdrop_path
     };
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .card {
-  position: relative;
-  transition: all 100ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+  display: block;
+  padding-top: 150%;
 
-  h3 {
+  figure {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    visibility: hidden;
-  }
-
-  img {
     width: 100%;
-    display: block;
-    box-shadow: none;
-  }
-
-  figcaption,
-  h2 {
+    height: 100%;
+    top: 0;
+    left: 0;
     margin: 0;
-  }
 
-  &.hoverable {
     img {
-      filter: brightness(0.75);
+      width: 100%;
+      height: 100%;
+      display: block;
+      box-shadow: none;
     }
-    &:hover {
-      z-index: 9999999;
-      transform: scale(1.1);
 
-      img {
-        box-shadow: 0rem 1em 2em rgba(0, 0, 0, 1);
-        filter: brightness(1);
+    figcaption {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+
+      color: white;
+
+      transition: all 0.1s ease-in-out;
+
+      visibility: hidden;
+      opacity: 0;
+
+      h3 {
+        font-weight: normal;
       }
     }
   }
 
-  &.standalone {
-    img {
-      border-radius: 0.5em;
-      box-shadow: 0rem 0.4em 0.4em rgba(0, 0, 0, 1);
-      filter: none;
+  &.expandable {
+    &:hover {
+      figcaption {
+        opacity: 1;
+        visibility: visible;
+        background: rgba(0, 0, 0, 0.452);
+      }
     }
   }
 }
