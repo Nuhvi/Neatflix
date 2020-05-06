@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Hero :items="trending"></Hero>
+    <HeroScroll :items="trending"></HeroScroll>
     <Scroller title="trending" :items="trending" type="movie"></Scroller>
     <Scroller title="Popular movies" :items="popularMovies" type="movie"></Scroller>
     <Scroller title="Popular Tv Shows" :items="popularTV" type="tv"></Scroller>
@@ -13,13 +13,13 @@
 <script>
 // @ is an alias to /src
 import MDB from "@/api/MDB";
-import Hero from "@/components/Hero";
+import HeroScroll from "@/components/HeroScroll";
 import Scroller from "@/components/Scroller";
 
 export default {
   name: "Home",
   components: {
-    Hero,
+    HeroScroll,
     Scroller
   },
   data: () => ({
