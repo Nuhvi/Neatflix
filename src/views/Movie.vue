@@ -74,6 +74,7 @@ export default {
     loadData: async function() {
       const res = await MDB.getMovie(this.$route.params.id);
       this.movie = res.data;
+      console.log(this.movie);
       this.backdropPath =
         "https://image.tmdb.org/t/p/original" + res.data.backdrop_path;
     }

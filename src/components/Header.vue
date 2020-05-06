@@ -26,6 +26,7 @@ header {
   position: absolute;
   z-index: 999;
   color: #9b9a9d;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 
   .container {
     z-index: -1;
@@ -35,7 +36,7 @@ header {
     max-width: $xl;
     margin: auto;
 
-    padding: 3em 1em;
+    padding: 2em 1em;
 
     display: grid;
     grid-template-columns: 160px auto 160px;
@@ -44,7 +45,7 @@ header {
     .logo {
       display: flex;
       justify-content: left;
-      font-size: 1.2em;
+      font-size: 1em;
 
       img {
         width: 6em;
@@ -58,7 +59,7 @@ header {
 
       a {
         color: inherit;
-        font-size: 1.2em;
+        font-size: 1em;
         padding: 0 0.4em;
 
         &:hover,

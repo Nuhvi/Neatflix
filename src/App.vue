@@ -11,12 +11,17 @@
 <script>
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import store from "@/store";
 
 export default {
   name: "App",
+  store,
   components: {
     Header,
     Footer
+  },
+  created() {
+    this.$store.dispatch("genres/fetchAll");
   }
 };
 </script>
