@@ -1,7 +1,7 @@
 <template>
   <router-link
     class="card"
-    v-bind:class="{ detailed: detailed, hoverable: hoverable ,lightenable:lightenable}"
+    v-bind:class="{ detailed: detailed, hoverable: hoverable, lightenable: lightenable }"
     :to="`/${mediaType}/${id}/${title.replace(/\s/g, '_')}`"
   >
     <figure>
@@ -9,14 +9,14 @@
       <div class="overlay">
         <figcaption>
           <h3>{{ title }}</h3>
-          <p>{{item.release_date || item.first_air_date}}</p>
+          <p>{{ item.release_date || item.first_air_date }}</p>
         </figcaption>
       </div>
     </figure>
   </router-link>
 </template>
 
-<script >
+<script>
 export default {
   name: "Card",
   props: {
@@ -79,7 +79,8 @@ export default {
       color: rgba(255, 255, 255, 0.85);
       background: linear-gradient(
         to top,
-        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.5) 70%,
         rgba(0, 0, 0, 0) 100%
       );
 
@@ -111,11 +112,11 @@ export default {
   }
 
   &.hoverable {
-    overflow: hidden;
     transition: all 0.1s ease-in-out;
 
     @media screen and (min-width: $sm) {
       &:hover {
+        overflow: hidden;
         z-index: 999999;
         transform: scale(1.1);
         border-radius: 0.5em;
