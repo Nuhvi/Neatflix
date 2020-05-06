@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <div>{{isFetching}}</div>
     <HeroScroll :items="trending" :loading="isFetching"></HeroScroll>
     <Scroller title="trending" :items="trending" type="movie"></Scroller>
     <Scroller title="Popular movies" :items="popularMovies" type="movie"></Scroller>
@@ -30,6 +29,8 @@ export default {
     popularTV: []
   }),
   created() {
+    this.$store.dispatch("genres/fetchAll");
+
     this.$store.dispatch("trending/fetch");
   },
   computed: {
@@ -37,7 +38,10 @@ export default {
       return this.$store.getters["trending/list"];
     },
     isFetching() {
-      return this.$store.getters["trending/isFetching"];
+      return (
+        this.$store.getters["trending/list"].length === 0 ||
+        this.$store.getters["trending/isFetching"]
+      );
     }
   },
   methods: {

@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-if="isLoading">isLoading</div>
+  <div v-else>
     <img :src="backdropPath" :alt="title + ' backdrop'" />
     <article role="article">
       <span class="stars_genres">
@@ -8,7 +9,7 @@
             <path fill="#F8D64E" d="M48 234L121 8l73 226L2 94h238z" />
           </svg>
           <span class="vote_average">{{item.vote_average}}</span>
-          <span class="genres">{{item.genre_ids}}</span>
+          <span class="genres">{{item.genres}}</span>
         </span>
       </span>
       <h1>{{title}}</h1>
@@ -19,12 +20,11 @@
 <script>
 export default {
   name: "Hero",
-  props: ["item"],
+  props: ["item", "isLoading"],
   data() {
-    this.item.title = this.item.title || this.item.original_name;
     return {
       id: this.item.id,
-      title: this.item.title.match(/^[^\(:]+/)[0],
+      title: this.item.title,
       backdropPath:
         "https://image.tmdb.org/t/p/original" + this.item.backdrop_path
     };
@@ -34,6 +34,7 @@ export default {
 
 <style lang="scss" scoped>
 div {
+  position: relative;
   width: 100%;
   height: 100%;
   display: block;

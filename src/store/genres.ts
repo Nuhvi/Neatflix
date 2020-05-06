@@ -13,16 +13,20 @@ export default {
   },
   mutations: {
     SET_MOVIE(state: any, payload: [Genre]) {
-      state.movie = payload;
+      const movieGenres = payload.reduce((map: any, obj: Genre) => {
+        map[obj.id] = obj.name;
+        return map;
+      }, {});
+
+      state.movie = movieGenres;
     },
     SET_TV(state: any, payload: [Genre]) {
-      payload.forEach((item: Genre) => {
-        state.tv = {
-          ...state.tv,
-          [item.id]: item.name
-        };
-      });
-      state.tv = payload;
+      const tvGenres = payload.reduce((map: any, obj: Genre) => {
+        map[obj.id] = obj.name;
+        return map;
+      }, {});
+
+      state.tv = tvGenres;
     }
   },
   actions: {
@@ -32,11 +36,6 @@ export default {
 
       state.commit("SET_MOVIE", moviesGenres.data.genres);
       state.commit("SET_TV", tvGenres.data.genres);
-    }
-  },
-  getters: {
-    tvGenres(state: any) {
-      return state.tv;
     }
   }
 };

@@ -26,10 +26,9 @@ export default {
     lightenable: Boolean
   },
   data() {
-    this.item.title = this.item.title || this.item.original_name;
     return {
       id: this.item.id,
-      title: this.item.title.match(/^[^\(:]+/)[0],
+      title: this.item.title,
       mediaType: "movie",
       posterPath: "https://image.tmdb.org/t/p/w300" + this.item.poster_path,
       backdropPath: "https://image.tmdb.org/t/p/w300" + this.item.backdrop_path

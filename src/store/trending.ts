@@ -1,5 +1,5 @@
 import MDB from "@/api/MDB";
-import { standrdize } from "./helpers";
+import { standardize } from "./helpers";
 
 export default {
   namespaced: true,
@@ -26,8 +26,9 @@ export default {
 
       let results = resTrending.data.results;
       const trendingIds = results.map((item: { id: number }) => item.id);
+      state.commit("SET_ID_LIST", trendingIds);
 
-      results = results.map((item: any) => standrdize(item, state));
+      results = results.map((item: any) => standardize(item, state));
 
       state.commit(
         "movies/UPDATE",
@@ -40,10 +41,6 @@ export default {
         results.filter((item: any) => item.media_type === "tv"),
         { root: true }
       );
-
-      console.log(results);
-
-      state.commit("SET_ID_LIST", trendingIds);
     }
   },
   getters: {

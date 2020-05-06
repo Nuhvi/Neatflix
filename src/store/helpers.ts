@@ -1,17 +1,11 @@
-export const standrdize: any = (item: any, state: any) => {
-  let title, genres;
-
+export const standardize: any = (item: any) => {
   if (item.media_type === "tv") {
-    title = item.original_name;
-    console.log("asd", state.rootGetters["genres/tvGenres"]);
-    genres = item.genre_ids;
-  } else {
-    title = item.title;
+    item.title = item.original_name;
   }
 
+  item.title = item.title.match(/^[^\(:]+/)[0];
+
   return {
-    ...item,
-    title,
-    genres
+    ...item
   };
 };
