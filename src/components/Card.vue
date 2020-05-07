@@ -5,10 +5,10 @@
     :to="this.item.route || ''"
   >
     <figure>
-      <img :src="posterPath" :alt="title + ' poster'" />
+      <img :src="this.item.cardPath" :alt="this.item.title + ' poster'" />
       <div class="overlay">
         <figcaption>
-          <h3>{{ title }}</h3>
+          <h3>{{ this.item.title }}</h3>
           <p>{{ item.release_date || item.first_air_date }}</p>
         </figcaption>
       </div>
@@ -24,15 +24,6 @@ export default {
     hoverable: Boolean,
     detailed: Boolean,
     lightenable: Boolean
-  },
-  data() {
-    return {
-      id: this.item.id,
-      title: this.item.title,
-      mediaType: "movie",
-      posterPath: "https://image.tmdb.org/t/p/w300" + this.item.poster_path,
-      backdropPath: "https://image.tmdb.org/t/p/w300" + this.item.backdrop_path
-    };
   }
 };
 </script>

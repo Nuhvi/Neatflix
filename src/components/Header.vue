@@ -108,15 +108,17 @@ header {
   }
 }
 
-@media screen and (max-width: $md) {
+@media (max-width: $md) {
   header {
     .container {
+      padding: 1em;
+
       grid-template-columns: 1fr;
       .logo {
         justify-content: center;
       }
-      #nav,
-      .placeholder {
+
+      .right {
         display: none;
       }
     }

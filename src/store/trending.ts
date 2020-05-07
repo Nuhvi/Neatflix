@@ -52,6 +52,7 @@ export default {
         { root: true }
       );
 
+      // TODO: uncommit next line!
       context.commit("END_LOADING");
     }
   },

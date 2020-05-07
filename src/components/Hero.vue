@@ -1,9 +1,8 @@
 <template>
   <div class="hero" v-if="isLoading">isLoading</div>
   <div class="hero" v-else>
-    <img :src="backdropPath" :alt="title + ' backdrop'" />
+    <img :src="this.item.backdropPath" :alt="this.item.title + ' backdrop'" />
     <article role="article">
-      <p class="duration" v-if="item.runtime">Duration: {{ item.runtime }} mins</p>
       <p class="stars_genres">
         <span class="stars">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
@@ -13,10 +12,11 @@
           <span class="genres" v-if="item.genreNames">{{ item.genreNames.join(" | ") }}</span>
         </span>
       </p>
-      <h1>{{ title }}</h1>
+      <h1>{{ this.item.title }}</h1>
       <p class="overview">{{ truncatedOverview }}</p>
       <div class="cta">
-        <router-link class="card" :to="this.item.route || ''">watch</router-link>
+        <router-link class="hero_btn red" :to="this.item.route">watch</router-link>
+        <button class="hero_btn ">Add to list</button>
       </div>
     </article>
   </div>
@@ -27,11 +27,7 @@ export default {
   name: "Hero",
   props: ["item", "isLoading"],
   data() {
-    this.item;
     return {
-      id: this.item.id,
-      title: this.item.title,
-      backdropPath: "https://image.tmdb.org/t/p/original" + this.item.backdrop_path,
       truncatedOverview:
         this.item.overview.length > 200
           ? this.item.overview.slice(0, 200) + "..."
@@ -113,6 +109,38 @@ export default {
           font-size: 0.65em;
           opacity: 0.8;
         }
+      }
+    }
+
+    .cta {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      @media (min-width: $md) {
+        width: 8em;
+      }
+    }
+
+    .hero_btn {
+      cursor: pointer;
+      border: none;
+      font-size: 0.8em;
+
+      display: block;
+      padding: 0.4em 0.8em;
+      background: black;
+      color: white;
+      border-radius: 2em;
+
+      @media (min-width: $md) {
+        font-size: 0.6em;
+      }
+
+      &.red {
+        background: red;
+        box-shadow: 0 0 30px rgba(255, 0, 0, 1);
       }
     }
 

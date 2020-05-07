@@ -22,15 +22,21 @@ const sanitize = (name: string) => (name.match(/^[^\(:]+/) || [""])[0];
 const slugify = (name: string) => name.replace(/\s/g, "_");
 
 export const createMovieItem = (movie: any, context: any): { id: number } => ({
+  detailed: false,
   ...movie,
   title: sanitize(movie.title),
   route: `/movie/${movie.id}/${slugify(movie.title)}`,
-  genreNames: genreNames(movie["genre_ids"], "movie", context)
+  genreNames: genreNames(movie["genre_ids"], "movie", context),
+  backdropPath: "https://image.tmdb.org/t/p/original" + movie.backdrop_path,
+  cardPath: "https://image.tmdb.org/t/p/w300" + movie.poster_path
 });
 
 export const createTVItem = (tvItem: any, context: any): { id: number } => ({
+  detailed: false,
   ...tvItem,
   title: sanitize(tvItem.title || tvItem.original_name),
   route: `/tv/${tvItem.id}/${slugify(tvItem.title || tvItem.original_name)}`,
-  genreNames: genreNames(tvItem["genre_ids"], "tv", context)
+  genreNames: genreNames(tvItem["genre_ids"], "tv", context),
+  backdropPath: "https://image.tmdb.org/t/p/original" + tvItem.backdrop_path,
+  cardPath: "https://image.tmdb.org/t/p/w300" + tvItem.poster_path
 });
