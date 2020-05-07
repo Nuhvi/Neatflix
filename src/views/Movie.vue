@@ -4,10 +4,10 @@
       <img :src="backdropPath" :alt="movie.title + ` backdrop`" />
       <div class="overlay">
         <section>
-          <h1>{{movie.title}}</h1>
-          <h2>{{movie.tagline}}</h2>
-          <p>{{movie.overview}}</p>
-          <p>{{movie}}</p>
+          <h1>{{ movie.title }}</h1>
+          <h2>{{ movie.tagline }}</h2>
+          <p>{{ movie.overview }}</p>
+          <p>{{ movie }}</p>
         </section>
       </div>
     </main>
@@ -74,9 +74,7 @@ export default {
     loadData: async function() {
       const res = await MDB.getMovie(this.$route.params.id);
       this.movie = res.data;
-      console.log(this.movie);
-      this.backdropPath =
-        "https://image.tmdb.org/t/p/original" + res.data.backdrop_path;
+      this.backdropPath = "https://image.tmdb.org/t/p/original" + res.data.backdrop_path;
     }
   }
 };

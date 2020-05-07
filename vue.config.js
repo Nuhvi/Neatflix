@@ -18,5 +18,8 @@ module.exports = {
         prependData: `@import "~@/assets/scss/variables.scss";`
       }
     }
+  },
+  pwa: {
+    themeColor: "#ff0000"
   }
 };
