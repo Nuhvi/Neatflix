@@ -3,23 +3,20 @@
   <div class="hero" v-else>
     <img :src="backdropPath" :alt="title + ' backdrop'" />
     <article role="article">
-      <span class="stars_genres">
+      <p class="duration" v-if="item.runtime">Duration: {{ item.runtime }} mins</p>
+      <p class="stars_genres">
         <span class="stars">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
             <path fill="#F8D64E" d="M48 234L121 8l73 226L2 94h238z" />
           </svg>
           <span class="vote_average">{{ item.vote_average }}</span>
-          <span class="genres">{{ item.genres.join(" | ") }}</span>
+          <span class="genres" v-if="item.genreNames">{{ item.genreNames.join(" | ") }}</span>
         </span>
-      </span>
+      </p>
       <h1>{{ title }}</h1>
       <p class="overview">{{ truncatedOverview }}</p>
       <div class="cta">
-        <router-link
-          class="card"
-          :to="`/${this.item.media_type}/${id}/${title.replace(/\s/g, '_')}`"
-          >watch</router-link
-        >
+        <router-link class="card" :to="this.item.route || ''">watch</router-link>
       </div>
     </article>
   </div>
@@ -30,6 +27,7 @@ export default {
   name: "Hero",
   props: ["item", "isLoading"],
   data() {
+    this.item;
     return {
       id: this.item.id,
       title: this.item.title,
@@ -100,6 +98,7 @@ export default {
     }
 
     .stars_genres {
+      margin: 1rem 0;
       font-size: 0.8em;
 
       .stars {

@@ -2,7 +2,7 @@
   <router-link
     class="card"
     v-bind:class="{ detailed: detailed, hoverable: hoverable, lightenable: lightenable }"
-    :to="`/${mediaType}/${id}/${title.replace(/\s/g, '_')}`"
+    :to="this.item.route || ''"
   >
     <figure>
       <img :src="posterPath" :alt="title + ' poster'" />

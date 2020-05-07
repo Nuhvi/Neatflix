@@ -13,6 +13,7 @@ export default (() => {
 
   const discoverMovies = () => api.get("discover/movie");
   const getMovie = (id: string) => api.get(`movie/${id}`);
+  const getTV = (id: string) => api.get(`tv/${id}`);
   const getMovieRecommendations = (id: string) => api.get(`movie/${id}/recommendations`);
   const getPopularMovies = () => api.get("movie/popular");
   const getPopularTV = () => api.get("tv/popular");
@@ -25,6 +26,7 @@ export default (() => {
   return {
     discoverMovies,
     getMovie,
+    getTV,
     getMovieRecommendations,
     getPopularMovies,
     getPopularTV,

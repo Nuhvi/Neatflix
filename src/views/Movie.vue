@@ -57,10 +57,11 @@
 
 <script>
 import MDB from "@/api/MDB";
+import store from "@/store";
 
 export default {
   name: "Movie",
-
+  store,
   data: function() {
     return {
       movie: {},
@@ -72,9 +73,14 @@ export default {
   },
   methods: {
     loadData: async function() {
-      const res = await MDB.getMovie(this.$route.params.id);
-      this.movie = res.data;
-      this.backdropPath = "https://image.tmdb.org/t/p/original" + res.data.backdrop_path;
+      let movie = this.$store.state.movies.byId[this.$route.params.id];
+      if (!movie) {
+        const res = await MDB.getMovie(this.$route.params.id);
+        movie = res.data;
+      }
+      this.movie = movie;
+
+      this.backdropPath = "https://image.tmdb.org/t/p/original" + this.movie.backdrop_path;
     }
   }
 };

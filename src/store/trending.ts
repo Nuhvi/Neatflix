@@ -1,5 +1,4 @@
 import MDB from "@/api/MDB";
-import { standardize } from "./helpers";
 
 interface TrendingItem {
   id: number;
@@ -31,18 +30,15 @@ export default {
     async fetch(context: any) {
       context.commit("START_LOADING");
       const resTrending = await MDB.getTrending();
-      context.commit("END_LOADING");
 
-      let results = resTrending.data.results;
-      const trendingIds = results.map((item: { id: number; media_type: string }) => ({
+      const results = resTrending.data.results;
+
+      const trendingList = results.map((item: { id: number; media_type: string }) => ({
         id: item.id,
         mediaType: item.media_type
       }));
-      context.commit("SET_ID_LIST", trendingIds);
 
-      results = results.map((item: any) =>
-        standardize(item, { genres: context.rootState.global.genres })
-      );
+      context.commit("SET_ID_LIST", trendingList);
 
       context.dispatch(
         "movies/update",
@@ -50,11 +46,13 @@ export default {
         { root: true }
       );
 
-      context.commit(
-        "tv/UPDATE",
+      context.dispatch(
+        "tv/update",
         results.filter((item: any) => item.media_type === "tv"),
         { root: true }
       );
+
+      context.commit("END_LOADING");
     }
   },
   getters: {
