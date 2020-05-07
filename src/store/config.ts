@@ -1,5 +1,6 @@
 import MDB from "@/api/MDB";
 import storage from "local-storage-fallback";
+import { mapIdToName } from "./helpers";
 
 interface Genre {
   id: number;
@@ -31,14 +32,8 @@ export default {
       state.base = payload;
     },
     SET_GENRES(state: any, payload: { movie: [Genre]; tv: [Genre] }) {
-      const movie = payload.movie.reduce((map: any, obj: Genre) => {
-        map[obj.id] = obj.name;
-        return map;
-      }, {});
-      const tv = payload.tv.reduce((map: any, obj: Genre) => {
-        map[obj.id] = obj.name;
-        return map;
-      }, {});
+      const movie = mapIdToName(payload.movie);
+      const tv = mapIdToName(payload.tv);
 
       state.genres = { movie, tv };
     },
@@ -54,9 +49,10 @@ export default {
 
       if (weekAgo < new Date(storedConfigDate || 0)) {
         const configBase = storage.getItem("base");
-        const genres = JSON.parse(storage.getItem("genres") || "{movie:[],tv:[]}");
-        context.commit("SET_CONFIG", configBase);
-        context.commit("SET_CACHED_GENRES", genres);
+        const genres = storage.getItem("genres");
+
+        configBase && context.commit("SET_CONFIG", JSON.parse(configBase));
+        genres && context.commit("SET_CACHED_GENRES", JSON.parse(genres));
       } else {
         await context.dispatch("getConfig");
         await context.dispatch("getGenres");

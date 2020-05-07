@@ -1,20 +1,20 @@
 import MDB from "@/api/MDB";
+import { mapIdToSelf, createMovieItem } from "./helpers";
 
 export default {
   namespaced: true,
-  state: {
-    byId: {}
-  },
+  state: { byId: {} },
   mutations: {
-    UPDATE(state: any, payload: [{ id: number }]) {
-      payload.forEach((item: { id: number }) => {
-        state.byId = {
-          ...state.byId,
-          [item.id]: item
-        };
-      });
+    UPDATE(state: any, payload: any) {
+      state.byId = { ...state.byId, ...payload };
     }
   },
-  actions: {},
+  actions: {
+    update(context: any, payload: [{ id: number }]) {
+      const standardizedPayload = payload.map((item: any) => createMovieItem(item, context));
+      const map = mapIdToSelf(standardizedPayload);
+      context.commit("UPDATE", map);
+    }
+  },
   getters: {}
 };

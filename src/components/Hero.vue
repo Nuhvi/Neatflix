@@ -1,6 +1,6 @@
 <template>
-  <div v-if="isLoading">isLoading</div>
-  <div v-else>
+  <div class="hero" v-if="isLoading">isLoading</div>
+  <div class="hero" v-else>
     <img :src="backdropPath" :alt="title + ' backdrop'" />
     <article role="article">
       <span class="stars_genres">
@@ -8,11 +8,19 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
             <path fill="#F8D64E" d="M48 234L121 8l73 226L2 94h238z" />
           </svg>
-          <span class="vote_average">{{item.vote_average}}</span>
-          <span class="genres">{{item.genres}}</span>
+          <span class="vote_average">{{ item.vote_average }}</span>
+          <span class="genres">{{ item.genres.join(" | ") }}</span>
         </span>
       </span>
-      <h1>{{title}}</h1>
+      <h1>{{ title }}</h1>
+      <p class="overview">{{ truncatedOverview }}</p>
+      <div class="cta">
+        <router-link
+          class="card"
+          :to="`/${this.item.media_type}/${id}/${title.replace(/\s/g, '_')}`"
+          >watch</router-link
+        >
+      </div>
     </article>
   </div>
 </template>
@@ -25,15 +33,18 @@ export default {
     return {
       id: this.item.id,
       title: this.item.title,
-      backdropPath:
-        "https://image.tmdb.org/t/p/original" + this.item.backdrop_path
+      backdropPath: "https://image.tmdb.org/t/p/original" + this.item.backdrop_path,
+      truncatedOverview:
+        this.item.overview.length > 200
+          ? this.item.overview.slice(0, 200) + "..."
+          : this.item.overview
     };
   }
 };
 </script>
 
 <style lang="scss" scoped>
-div {
+.hero {
   position: relative;
   width: 100%;
   height: 100%;
@@ -52,11 +63,7 @@ div {
   &::before {
     z-index: 2;
     content: "";
-    background-image: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.5) 75%,
-      $app-bg 95%
-    );
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 75%, $app-bg 95%);
   }
 
   img {
@@ -89,7 +96,7 @@ div {
     }
 
     h1 {
-      margin-top: 0.2em;
+      margin: 0.2em 0;
     }
 
     .stars_genres {
@@ -108,6 +115,14 @@ div {
           opacity: 0.8;
         }
       }
+    }
+
+    .overview {
+      font-size: 0.5em;
+      font-weight: normal;
+      text-align: left;
+      max-width: 60ch;
+      line-height: 1.8;
     }
   }
 }

@@ -1,14 +1,13 @@
 <template>
   <div class="home">
-    <HeroScroll :items="trending" :loading="isFetching"></HeroScroll>
+    <HeroScroll :items="HeroItems" :isLoading="HeroItemsLoading" limit="8"></HeroScroll>
     <Scroller title="trending" :items="trending" type="movie"></Scroller>
     <Scroller title="Popular movies" :items="popularMovies" type="movie"></Scroller>
     <Scroller title="Popular Tv Shows" :items="popularTV" type="tv"></Scroller>
   </div>
 </template>
 
-<style >
-</style>
+<style></style>
 
 <script>
 // @ is an alias to /src
@@ -35,11 +34,11 @@ export default {
     trending() {
       return this.$store.getters["trending/list"];
     },
-    isFetching() {
-      return (
-        this.$store.getters["trending/list"].length === 0 ||
-        this.$store.getters["trending/isFetching"]
-      );
+    HeroItems() {
+      return this.$store.getters["trending/listByScore"];
+    },
+    HeroItemsLoading() {
+      return this.$store.state.trending.isLoading;
     }
   },
   methods: {

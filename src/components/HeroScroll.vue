@@ -1,7 +1,10 @@
 <template>
-  <div class="hero">
+  <div class="hero_scroller" v-if="isLoading">
+    loading here
+  </div>
+  <div class="hero_scroller" v-else>
     <swiper class="swiper" :options="swiperOption">
-      <swiper-slide v-for="item in items.slice(0,3)" :key="item.id">
+      <swiper-slide v-for="item in limitedItems" :key="item.id">
         <Hero :item="item" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
@@ -19,10 +22,14 @@ export default {
     SwiperSlide,
     Hero
   },
-  props: ["items"],
+  props: ["items", "limit", "isLoading"],
+  computed: {
+    limitedItems() {
+      return this.items.slice(0, this.limit || 8);
+    }
+  },
   data() {
     return {
-      item: this.items[0],
       swiperOption: {
         pagination: {
           el: ".swiper-pagination",
@@ -35,7 +42,7 @@ export default {
 </script>
 
 <style lang="scss">
-.hero {
+.hero_scroller {
   position: relative;
   margin: auto;
   overflow: hidden;
@@ -58,6 +65,13 @@ export default {
       display: inline-block;
       border-radius: 2px;
       background: #fff9;
+    }
+
+    @media (max-width: $md) {
+      width: 30px;
+      &::after {
+        width: 25px;
+      }
     }
 
     &.swiper-pagination-bullet-active {

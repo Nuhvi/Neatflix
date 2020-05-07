@@ -26,7 +26,7 @@ header {
   position: absolute;
   z-index: 999;
   color: #9b9a9d;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.05);
 
   .container {
     z-index: -1;

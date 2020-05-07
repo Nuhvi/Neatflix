@@ -1,4 +1,5 @@
 import MDB from "@/api/MDB";
+import { mapIdToSelf } from "./helpers";
 
 export default {
   namespaced: true,
@@ -7,12 +8,7 @@ export default {
   },
   mutations: {
     UPDATE(state: any, payload: [{ id: number }]) {
-      payload.forEach((item: { id: number }) => {
-        state.byId = {
-          ...state.byId,
-          [item.id]: item
-        };
-      });
+      state.byId = { ...state.byId, ...mapIdToSelf(payload) };
     }
   },
   actions: {},
