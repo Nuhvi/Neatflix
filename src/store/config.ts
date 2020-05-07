@@ -1,4 +1,5 @@
 import MDB from "@/api/MDB";
+import storage from "local-storage-fallback";
 
 interface Genre {
   id: number;
@@ -11,9 +12,6 @@ interface State {
   base: {};
   genres: {};
 }
-
-// TODO
-// const configCache = () => {};
 
 export default {
   namespaced: true,
@@ -32,40 +30,55 @@ export default {
     SET_CONFIG(state: State, payload: any) {
       state.base = payload;
     },
-    SET_MOVIE_GENRES(state: any, payload: [Genre]) {
-      const movieGenres = payload.reduce((map: any, obj: Genre) => {
+    SET_GENRES(state: any, payload: { movie: [Genre]; tv: [Genre] }) {
+      const movie = payload.movie.reduce((map: any, obj: Genre) => {
+        map[obj.id] = obj.name;
+        return map;
+      }, {});
+      const tv = payload.tv.reduce((map: any, obj: Genre) => {
         map[obj.id] = obj.name;
         return map;
       }, {});
 
-      state.genres.movie = movieGenres;
+      state.genres = { movie, tv };
     },
-    SET_TV_GENRES(state: any, payload: [Genre]) {
-      const tvGenres = payload.reduce((map: any, obj: Genre) => {
-        map[obj.id] = obj.name;
-        return map;
-      }, {});
-
-      state.genres.tv = tvGenres;
+    SET_CACHED_GENRES(state: any, payload: { movie: [Genre]; tv: [Genre] }) {
+      state.genres = payload;
     }
   },
   actions: {
-    async init(state: any) {
-      state.commit("START_LOADING");
-      await state.dispatch("getConfig");
-      await state.dispatch("getGenres");
-      state.commit("END_LOADING");
+    async init(context: any) {
+      context.commit("START_LOADING");
+      const weekAgo = new Date(Date.now() - 604800000);
+      const storedConfigDate = storage.getItem("config_cache_date");
+
+      if (weekAgo < new Date(storedConfigDate || 0)) {
+        const configBase = storage.getItem("base");
+        const genres = JSON.parse(storage.getItem("genres") || "{movie:[],tv:[]}");
+        context.commit("SET_CONFIG", configBase);
+        context.commit("SET_CACHED_GENRES", genres);
+      } else {
+        await context.dispatch("getConfig");
+        await context.dispatch("getGenres");
+
+        storage.setItem("base", JSON.stringify(context.state.base));
+        storage.setItem("genres", JSON.stringify(context.state.genres));
+        storage.setItem("config_cache_date", new Date().toDateString());
+      }
+      context.commit("END_LOADING");
     },
-    async getConfig(state: any) {
+    async getConfig(context: any) {
       const res = await MDB.getConfig();
-      state.commit("SET_CONFIG", res.data);
+      context.commit("SET_CONFIG", res.data);
     },
-    async getGenres(state: any) {
+    async getGenres(context: any) {
       const moviesGenres = await MDB.getMoviesGenres();
       const tvGenres = await MDB.getTvGenres();
 
-      state.commit("SET_MOVIE_GENRES", moviesGenres.data.genres);
-      state.commit("SET_TV_GENRES", tvGenres.data.genres);
+      context.commit("SET_GENRES", {
+        movie: moviesGenres.data.genres,
+        tv: tvGenres.data.genres
+      });
     }
   }
 };
