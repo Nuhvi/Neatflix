@@ -3,20 +3,22 @@
   <div class="hero" v-else>
     <img :src="this.item.backdropPath" :alt="this.item.title + ' backdrop'" />
     <article role="article">
-      <p class="stars_genres">
-        <span class="stars">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-            <path fill="#F8D64E" d="M48 234L121 8l73 226L2 94h238z" />
-          </svg>
-          <span class="vote_average">{{ item.vote_average }}</span>
-          <span class="genres" v-if="item.genreNames">{{ item.genreNames.join(" | ") }}</span>
-        </span>
-      </p>
-      <h1>{{ this.item.title }}</h1>
-      <p class="overview">{{ truncatedOverview }}</p>
-      <div class="cta">
-        <router-link class="hero_btn red" :to="this.item.route">watch</router-link>
-        <button class="hero_btn ">Add to list</button>
+      <div class="container">
+        <p class="stars_genres">
+          <span class="stars">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+              <path fill="#F8D64E" d="M48 234L121 8l73 226L2 94h238z" />
+            </svg>
+            <span class="vote_average">{{ item.vote_average }}</span>
+            <span class="genres" v-if="item.genreNames">{{ item.genreNames.join(" | ") }}</span>
+          </span>
+        </p>
+        <h1>{{ this.item.title }}</h1>
+        <p class="overview">{{ truncatedOverview }}</p>
+        <div class="cta">
+          <router-link class="hero_btn red" :to="this.item.route">watch</router-link>
+          <button class="hero_btn">Add to list</button>
+        </div>
       </div>
     </article>
   </div>
@@ -57,7 +59,11 @@ export default {
   &::before {
     z-index: 2;
     content: "";
-    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 75%, $app-bg 95%);
+    background-image: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.5) 75%,
+      $app-bg 95%
+    );
   }
 
   img {
@@ -69,17 +75,22 @@ export default {
 
   article {
     z-index: 3;
-    position: relative;
-    max-width: $lg;
-    margin: auto;
+    position: absolute;
     height: 100%;
-    width: 90%;
-    top: -100%;
+    width: 100%;
+    top: 0;
+    left: 0;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
+    .container {
+      margin: auto;
+      max-width: $lg;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+    }
 
     color: white;
 

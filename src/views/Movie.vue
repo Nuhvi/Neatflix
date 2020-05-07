@@ -1,17 +1,6 @@
 <template>
   <div>
-    <main class="movie_page">
-      <img :src="backdropPath" :alt="movie.title + ` backdrop`" />
-      <div class="overlay">
-        <section>
-          <h1>{{ movie.title }}</h1>
-          <h2>{{ movie.tagline }}</h2>
-          <p>{{ movie.overview }}</p>
-          <p>{{ movie }}</p>
-        </section>
-      </div>
-    </main>
-    <aside></aside>
+    <Hero :item="movie"></Hero>
   </div>
 </template>
 
@@ -27,7 +16,7 @@
     height: 100%;
     object-fit: cover;
     object-position: 50% 0;
-    filter: brightness(0.6);
+    filter: brightness(0.4);
   }
 
   .overlay {
@@ -58,10 +47,14 @@
 <script>
 import MDB from "@/api/MDB";
 import store from "@/store";
+import Hero from "@/components/Hero";
 
 export default {
   name: "Movie",
   store,
+  components: {
+    Hero
+  },
   data: function() {
     return {
       movie: {},
@@ -80,7 +73,8 @@ export default {
       }
       this.movie = movie;
 
-      this.backdropPath = "https://image.tmdb.org/t/p/original" + this.movie.backdrop_path;
+      this.backdropPath =
+        "https://image.tmdb.org/t/p/original" + this.movie.backdrop_path;
     }
   }
 };

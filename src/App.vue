@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <Header role="banner" />
-    <main role="main" v-if="isLoading">isLoading</main>
-    <main role="main" v-else>
+    <main role="main" v-if="isLoading">
       <router-view />
     </main>
+
     <Footer role="contentinfo" />
   </div>
 </template>
@@ -21,10 +21,10 @@ export default {
     Header,
     Footer
   },
-  computed: {
-    isLoading() {
-      return store.state.global.isLoading;
-    }
+  data() {
+    return {
+      isLoading: store.state.global.isLoading
+    };
   },
   created() {
     store.dispatch("global/init");

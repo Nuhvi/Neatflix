@@ -1,7 +1,5 @@
 <template>
-  <div class="hero_scroller" v-if="isLoading">
-    loading here
-  </div>
+  <div class="hero_scroller" v-if="isLoading">loading here</div>
   <div class="hero_scroller" v-else>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="item in limitedItems" :key="item.id">
@@ -33,7 +31,7 @@ export default {
       swiperOption: {
         autoplay: {
           delay: 2500,
-          disableOnInteraction: false
+          disableOnInteraction: true
         },
         pagination: {
           el: ".swiper-pagination",
