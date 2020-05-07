@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <Header role="banner" />
-    <main role="main">
+    <main role="main" v-if="isLoading">isLoading</main>
+    <main role="main" v-else>
       <router-view />
     </main>
     <Footer role="contentinfo" />
@@ -11,12 +12,22 @@
 <script>
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import store from "@/store";
 
 export default {
   name: "App",
+  store,
   components: {
     Header,
     Footer
+  },
+  computed: {
+    isLoading() {
+      return store.state.global.isLoading;
+    }
+  },
+  created() {
+    store.dispatch("global/init");
   }
 };
 </script>
@@ -51,6 +62,13 @@ body {
   min-height: 100%;
   font-size: 16px;
   overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  main {
+    flex-grow: 1;
+  }
 
   h1,
   h2 {

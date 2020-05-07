@@ -19,6 +19,7 @@ export default (() => {
   const getTrending = () => api.get("trending/all/week");
   const getMoviesGenres = () => api.get("genre/movie/list");
   const getTvGenres = () => api.get("genre/tv/list");
+  const getConfig = () => api.get("configuration");
 
   return {
     discoverMovies,
@@ -28,6 +29,7 @@ export default (() => {
     getPopularTV,
     getTrending,
     getMoviesGenres,
-    getTvGenres
+    getTvGenres,
+    getConfig
   };
 })();

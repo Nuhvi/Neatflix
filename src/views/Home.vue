@@ -29,8 +29,6 @@ export default {
     popularTV: []
   }),
   created() {
-    this.$store.dispatch("genres/fetchAll");
-
     this.$store.dispatch("trending/fetch");
   },
   computed: {
