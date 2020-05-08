@@ -36,6 +36,8 @@ export default {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 
+  font-family: "Bebas Neue", Helvetica, Arial, sans-serif;
+
   @media (min-width: $sm) {
     font-size: 4em;
   }

@@ -4,16 +4,16 @@
     <img :src="this.item.backdropPath" :alt="this.item.title + ' backdrop'" />
     <article role="article">
       <div class="container">
+        <h2>{{ this.item.title }}</h2>
         <p class="stars_genres">
           <span class="stars">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
               <path fill="#F8D64E" d="M48 234L121 8l73 226L2 94h238z" />
             </svg>
             <span class="vote_average">{{ item.vote_average }}</span>
-            <span class="genres" v-if="item.genreNames">{{ item.genreNames.join(" | ") }}</span>
+            <span class="genres" v-if="item.genreNames">{{ formatedGenres }}</span>
           </span>
         </p>
-        <h1>{{ this.item.title }}</h1>
         <p class="overview">{{ truncatedOverview }}</p>
         <div class="cta">
           <router-link class="hero_btn red" :to="this.item.route">watch</router-link>
@@ -25,11 +25,14 @@
 </template>
 
 <script>
+import { joinWithCol } from "@/utils";
+
 export default {
   name: "Hero",
   props: ["item", "isLoading"],
   data() {
     return {
+      formatedGenres: joinWithCol(this.item.genreNames.slice(0, 3)),
       truncatedOverview:
         this.item.overview.length > 200
           ? this.item.overview.slice(0, 200) + "..."
@@ -80,11 +83,13 @@ export default {
     width: 100%;
     top: 0;
     left: 0;
+    text-align: left;
 
     .container {
-      margin: auto;
       max-width: $lg;
+      margin: auto;
       height: 100%;
+      padding: 0 1em;
 
       display: flex;
       flex-direction: column;
@@ -100,67 +105,91 @@ export default {
       font-size: 2rem;
     }
 
-    h1 {
+    h2 {
       margin: 0.2em 0;
+      text-transform: capitalize;
+
+      @media (max-width: $sm) {
+        font-size: 2.5rem;
+      }
     }
 
     .stars_genres {
-      margin: 1rem 0;
-      font-size: 0.8em;
+      display: flex;
+      text-align: left;
+      margin: 0;
+      font-size: 0.7em;
 
       .stars {
         svg {
-          height: 1em;
+          height: 0.8em;
+          margin-right: 0.3em;
         }
         .vote_average {
-          margin: 0 0.3em;
         }
+      }
 
-        .genres {
-          font-size: 0.65em;
-          opacity: 0.8;
-        }
+      .genres {
+        font-size: 0.8em;
+        opacity: 0.8;
+        margin-left: 1em;
       }
     }
 
     .cta {
       width: 100%;
       display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.5em;
+
+      .hero_btn.red {
+        margin-right: 1em;
+      }
 
       @media (min-width: $md) {
-        width: 8em;
+        width: 7em;
+        justify-content: space-between;
       }
     }
 
     .hero_btn {
       cursor: pointer;
       border: none;
-      font-size: 0.8em;
+      font-size: 0.7em;
+      text-transform: capitalize;
 
       display: block;
-      padding: 0.4em 0.8em;
+      padding: 0.5em 1em;
+
       background: black;
       color: white;
       border-radius: 2em;
 
-      @media (min-width: $md) {
-        font-size: 0.6em;
-      }
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+
+      transition: transform ease 0.2s;
 
       &.red {
         background: red;
-        box-shadow: 0 0 30px rgba(255, 0, 0, 1);
+        box-shadow: 0 0 10px rgba(255, 0, 0, 1);
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+
+      @media (min-width: $md) {
+        font-size: 0.5em;
+        padding: 1em;
       }
     }
 
     .overview {
-      font-size: 0.5em;
+      font-size: 0.55em;
       font-weight: normal;
       text-align: left;
       max-width: 60ch;
-      line-height: 1.8;
+      line-height: 1.5;
     }
   }
 }

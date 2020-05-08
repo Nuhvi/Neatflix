@@ -69,10 +69,5 @@ body {
   main {
     flex-grow: 1;
   }
-
-  h1,
-  h2 {
-    font-family: "Bebas Neue", Helvetica, Arial, sans-serif;
-  }
 }
 </style>

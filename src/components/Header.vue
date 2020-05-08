@@ -10,8 +10,12 @@
           <li>
             <router-link to="/">Home</router-link>
           </li>
-          <li><router-link to="/movies">Movies</router-link></li>
-          <li><router-link to="/tv">Series</router-link></li>
+          <li>
+            <router-link to="/movies">Movies</router-link>
+          </li>
+          <li>
+            <router-link to="/tv">Series</router-link>
+          </li>
         </ul>
         <a class="placeholder">user</a>
       </div>
@@ -87,12 +91,13 @@ header {
 
           &.router-link-exact-active {
             &::after {
+              cursor: auto;
               content: "";
               position: absolute;
-              left: 50%;
+              left: calc(50% - 3px);
               bottom: -100%;
-              width: 5px;
-              height: 5px;
+              width: 6px;
+              height: 6px;
               background: red;
 
               border-radius: 50%;
