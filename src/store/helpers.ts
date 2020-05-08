@@ -1,5 +1,3 @@
-import MDB from "@/api/MDB";
-
 export const mapIdToName = (arr: [{ id: number; name: string }]) =>
   arr.reduce((map: any, obj: { id: number; name: string }) => {
     map[obj.id] = obj.name;
@@ -12,23 +10,31 @@ export const mapIdToSelf = (arr: { id: number }[]) =>
     return map;
   }, {});
 
-const genreNames = (genreIds: [number], type: string, context: any) => {
+const sanitize = (name: string) => (name.match(/^[^\(:]+/) || [""])[0];
+
+const slugify = (name: string) => name.replace(/\s/g, "_");
+
+const genreNames = (item: { genre_ids: [number] }, type: string, context: any) => {
   const genres = context.rootState.global.genres[type];
 
-  return genreIds.map((id: number) => genres[id]);
+  return item["genre_ids"].map((id: number) => genres[id]);
 };
 
-const sanitize = (name: string) => (name.match(/^[^\(:]+/) || [""])[0];
-const slugify = (name: string) => name.replace(/\s/g, "_");
+const getImages = (item: any, context: any) => {
+  const imagesAPI = context.rootState.global.base.images;
+  return {
+    backdropPath: imagesAPI.secure_base_url + imagesAPI["backdrop_sizes"][3] + item.backdrop_path,
+    cardPath: imagesAPI.secure_base_url + imagesAPI["poster_sizes"][3] + item.poster_path
+  };
+};
 
 export const createMovieItem = (movie: any, context: any): { id: number } => ({
   detailed: false,
   ...movie,
   title: sanitize(movie.title),
   route: `/movie/${movie.id}/${slugify(movie.title)}`,
-  genreNames: genreNames(movie["genre_ids"], "movie", context),
-  backdropPath: "https://image.tmdb.org/t/p/original" + movie.backdrop_path,
-  cardPath: "https://image.tmdb.org/t/p/w300" + movie.poster_path
+  genreNames: genreNames(movie, "movie", context),
+  ...getImages(movie, context)
 });
 
 export const createTVItem = (tvItem: any, context: any): { id: number } => ({
@@ -36,7 +42,6 @@ export const createTVItem = (tvItem: any, context: any): { id: number } => ({
   ...tvItem,
   title: sanitize(tvItem.title || tvItem.original_name),
   route: `/tv/${tvItem.id}/${slugify(tvItem.title || tvItem.original_name)}`,
-  genreNames: genreNames(tvItem["genre_ids"], "tv", context),
-  backdropPath: "https://image.tmdb.org/t/p/original" + tvItem.backdrop_path,
-  cardPath: "https://image.tmdb.org/t/p/w300" + tvItem.poster_path
+  genreNames: genreNames(tvItem, "tv", context),
+  ...getImages(tvItem, context)
 });

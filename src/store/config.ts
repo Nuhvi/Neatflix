@@ -17,7 +17,6 @@ interface State {
 export default {
   namespaced: true,
   state: {
-    staticCategories: ["Popular", "Top Rated", "Upcoming"],
     isLoading: false,
     genres: {}
   },

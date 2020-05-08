@@ -6,7 +6,6 @@ import trending from "./trending";
 import movies from "./movies";
 import tv from "./tv";
 import global from "./config";
-import upcoming from "./upcoming";
 
 Vue.use(Vuex);
 
@@ -15,8 +14,7 @@ export default new Vuex.Store({
     trending,
     movies,
     tv,
-    global,
-    upcoming
+    global
   },
   actions: {}
 });
