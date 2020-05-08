@@ -2,9 +2,11 @@
   <div id="app">
     <Header role="banner" />
     <main role="main" v-if="isLoading">
+      <Spinner :isFullPage="true"></Spinner>
+    </main>
+    <main role="main" v-else>
       <router-view />
     </main>
-
     <Footer role="contentinfo" />
   </div>
 </template>
@@ -12,6 +14,7 @@
 <script>
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Spinner from "@/components/Spinner";
 import store from "@/store";
 
 export default {
@@ -19,12 +22,13 @@ export default {
   store,
   components: {
     Header,
-    Footer
+    Footer,
+    Spinner
   },
-  data() {
-    return {
-      isLoading: store.state.global.isLoading
-    };
+  computed: {
+    isLoading() {
+      return this.$store.state.global.isLoading;
+    }
   },
   created() {
     store.dispatch("global/init");

@@ -1,6 +1,5 @@
 <template>
-  <div class="hero" v-if="isLoading">isLoading</div>
-  <div class="hero" v-else>
+  <div class="hero " v-if="!empty">
     <img :src="this.item.backdropPath" :alt="this.item.title + ' backdrop'" />
     <article role="article">
       <div class="container">
@@ -16,27 +15,45 @@
         </p>
         <p class="overview">{{ truncatedOverview }}</p>
         <div class="cta">
-          <router-link class="hero_btn red" :to="this.item.route">watch</router-link>
-          <button class="hero_btn">Add to list</button>
+          <router-link class="hero_btn red" :to="this.item.route">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 494.148 494.148">
+              <path
+                d="M405.284 201.188L130.804 13.28C118.128 4.596 105.356 0 94.74 0 74.216 0 61.52 16.472 61.52 44.044v406.124c0 27.54 12.68 43.98 33.156 43.98 10.632 0 23.2-4.6 35.904-13.308l274.608-187.904c17.66-12.104 27.44-28.392 27.44-45.884.004-17.48-9.664-33.764-27.344-45.864z"
+              />
+            </svg>
+            <span>watch</span>
+          </router-link>
+          <button class="hero_btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 469.33333 469.33333">
+              <path
+                d="m437.332031 192h-160v-160c0-17.664062-14.335937-32-32-32h-21.332031c-17.664062 0-32 14.335938-32 32v160h-160c-17.664062 0-32 14.335938-32 32v21.332031c0 17.664063 14.335938 32 32 32h160v160c0 17.664063 14.335938 32 32 32h21.332031c17.664063 0 32-14.335937 32-32v-160h160c17.664063 0 32-14.335937 32-32v-21.332031c0-17.664062-14.335937-32-32-32zm0 0"
+              />
+            </svg>
+            <span>Add to list</span>
+          </button>
         </div>
       </div>
     </article>
   </div>
+  <div class="hero" v-else>
+    <Spinner></Spinner>
+  </div>
 </template>
 
 <script>
-import { joinWithCol } from "@/utils";
+import { joinWithCol, truncate } from "@/utils";
+import Spinner from "@/components/Spinner";
 
 export default {
   name: "Hero",
-  props: ["item", "isLoading"],
+  props: ["item", "empty"],
+  components: {
+    Spinner
+  },
   data() {
     return {
-      formatedGenres: joinWithCol(this.item.genreNames.slice(0, 3)),
-      truncatedOverview:
-        this.item.overview.length > 200
-          ? this.item.overview.slice(0, 200) + "..."
-          : this.item.overview
+      formatedGenres: this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
+      truncatedOverview: this.item && truncate(this.item.overview, 200)
     };
   }
 };
@@ -62,11 +79,7 @@ export default {
   &::before {
     z-index: 2;
     content: "";
-    background-image: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.5) 75%,
-      $app-bg 95%
-    );
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 75%, $app-bg 95%);
   }
 
   img {
@@ -85,6 +98,14 @@ export default {
     left: 0;
     text-align: left;
 
+    color: white;
+
+    font-size: 1.5em;
+
+    @media (min-width: $md) {
+      font-size: 2em;
+    }
+
     .container {
       max-width: $lg;
       margin: auto;
@@ -95,14 +116,6 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: start;
-    }
-
-    color: white;
-
-    font-size: 1.5em;
-
-    @media (min-width: $md) {
-      font-size: 2rem;
     }
 
     h2 {
@@ -141,13 +154,14 @@ export default {
       display: flex;
       justify-content: center;
       margin-top: 0.5em;
+      font-size: 0.5em;
 
       .hero_btn.red {
         margin-right: 1em;
       }
 
       @media (min-width: $md) {
-        width: 7em;
+        width: auto;
         justify-content: space-between;
       }
     }
@@ -155,11 +169,11 @@ export default {
     .hero_btn {
       cursor: pointer;
       border: none;
-      font-size: 0.7em;
       text-transform: capitalize;
 
-      display: block;
-      padding: 0.5em 1em;
+      display: flex;
+      align-items: center;
+      padding: 1em;
 
       background: black;
       color: white;
@@ -167,7 +181,13 @@ export default {
 
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 
-      transition: transform ease 0.2s;
+      transition: transform ease 0.1s;
+
+      svg {
+        fill: currentColor;
+        height: 1em;
+        margin-right: 0.5em;
+      }
 
       &.red {
         background: red;
@@ -176,11 +196,6 @@ export default {
 
       &:hover {
         transform: translateY(-2px);
-      }
-
-      @media (min-width: $md) {
-        font-size: 0.5em;
-        padding: 1em;
       }
     }
 

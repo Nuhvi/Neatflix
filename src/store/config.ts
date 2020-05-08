@@ -18,7 +18,7 @@ export default {
   namespaced: true,
   state: {
     staticCategories: ["Popular", "Top Rated", "Upcoming"],
-    isLoading: true,
+    isLoading: false,
     genres: {}
   },
   mutations: {

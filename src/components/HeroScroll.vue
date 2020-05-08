@@ -1,5 +1,7 @@
 <template>
-  <div class="hero_scroller" v-if="isLoading">loading here</div>
+  <div class="hero_scroller" v-if="isLoading">
+    <Hero :empty="true" />
+  </div>
   <div class="hero_scroller" v-else>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="item in limitedItems" :key="item.id">
@@ -13,6 +15,7 @@
 <script>
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import Hero from "@/components/Hero";
+
 export default {
   nam: "HeroScroll",
   components: {
