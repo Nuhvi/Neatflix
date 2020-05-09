@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <HeroScroll :items="heroItems" :isLoading="trendingLoading" limit="8"></HeroScroll>
+
     <Scroller
       title="trending"
       :items="trending"

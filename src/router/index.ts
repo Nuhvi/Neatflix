@@ -20,6 +20,11 @@ const routes = [
     path: "/tv/:id/*",
     name: "TV",
     component: Movie
+  },
+  {
+    path: "*",
+    name: "Home",
+    component: Home
   }
 ];
 

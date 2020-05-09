@@ -5,7 +5,7 @@
   <div class="hero_scroller" v-else>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="item in limitedItems" :key="item.id">
-        <Hero :item="item" />
+        <Hero :item="item" :more="true" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
@@ -53,7 +53,7 @@ export default {
 <style lang="scss">
 .hero_scroller {
   position: relative;
-  margin: auto;
+  margin: 0 0 5em auto;
   overflow: hidden;
 
   .swiper {

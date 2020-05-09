@@ -1,10 +1,12 @@
 <template>
-  <div class="card">
+  <router-link class="card" :to="route">
     <figure>
       <div class="image">
         <img :src="this.item.cardPath" :alt="this.item.title + ' poster'" />
         <div class="overlay">
           <h3>{{ this.item.title }}</h3>
+          <p>{{ truncatedOverview }}</p>
+          <WatchBtn :route="this.item.route || ''"></WatchBtn>
         </div>
       </div>
       <figcaption>
@@ -12,17 +14,37 @@
         <p>{{ item.release_date || item.first_air_date }}</p>
       </figcaption>
     </figure>
-  </div>
+  </router-link>
 </template>
 
 <script>
+import WatchBtn from "@/components/WatchBtn";
+import { truncate } from "@/utils";
+
 export default {
   name: "Card",
-  props: ["item"]
+  props: ["item"],
+  components: {
+    WatchBtn
+  },
+  computed: {
+    truncatedOverview() {
+      return truncate(this.item.overview, 100);
+    },
+    route() {
+      return this.item.route || "";
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+.card {
+  @media (max-width: $sm) {
+    pointer-events: none;
+  }
+}
+
 figure {
   margin: 0;
 
@@ -41,17 +63,37 @@ figure {
       top: 0;
       opacity: 0;
 
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
       padding: 0 1em;
       color: white;
       text-align: left;
-      font-size: 1em;
+
+      @media (min-width: $sm) {
+        font-size: 0.8em;
+      }
+
+      @media (min-width: $md) {
+        font-size: 0.9em;
+      }
+
+      @media (min-width: $lg) {
+        font-size: 0.8em;
+      }
 
       h3 {
         font-weight: 500;
       }
 
+      p {
+        opacity: 0.7;
+      }
+
       .hero_btn {
-        font-size: 0.8em;
+        margin: auto;
+        border-radius: 5em;
       }
     }
 
@@ -63,30 +105,35 @@ figure {
       top: 0;
     }
 
-    &:hover {
-      z-index: 999999;
-      box-shadow: 0rem 1em 2em rgba(0, 0, 0, 1);
+    @media (hover: hover) {
+      &:hover {
+        z-index: 999999;
+        box-shadow: 0rem 1em 2em rgba(0, 0, 0, 1);
 
-      @keyframes pop {
-        0% {
-          transform: scale(1);
+        @keyframes pop {
+          0% {
+            transform: scale(1);
+          }
+          30% {
+            transform: scale(1.11);
+          }
+          100% {
+            transform: scale(1.1);
+          }
         }
-        30% {
-          transform: scale(1.11);
+
+        animation: pop 0.5s both;
+
+        .overlay {
+          border-radius: 0.7em;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+
+          opacity: 1;
         }
-        100% {
-          transform: scale(1.1);
+
+        img {
+          filter: blur(20px) brightness(0.7);
         }
-      }
-
-      animation: pop 0.5s both;
-
-      .overlay {
-        opacity: 1;
-      }
-
-      img {
-        filter: blur(20px) brightness(0.7);
       }
     }
   }

@@ -22,7 +22,7 @@
           <p class="overview">{{ truncatedOverview }}</p>
           <div class="cta">
             <WatchBtn :route="this.item.route"></WatchBtn>
-            <AddToListBtn></AddToListBtn>
+            <MoreDetails :route="this.item.route" v-if="more"></MoreDetails>
           </div>
         </div>
       </article>
@@ -37,15 +37,15 @@
 import { joinWithCol, truncate } from "@/utils";
 import Spinner from "@/components/Spinner";
 import WatchBtn from "@/components/WatchBtn";
-import AddToListBtn from "@/components/AddToListBtn";
+import MoreDetails from "@/components/MoreDetails";
 
 export default {
   name: "Hero",
-  props: ["item", "empty"],
+  props: ["item", "empty", "more"],
   components: {
     Spinner,
     WatchBtn,
-    AddToListBtn
+    MoreDetails
   },
   data() {
     return {
@@ -71,18 +71,13 @@ export default {
     height: 80vh;
   }
 
-  &::after,
-  &::before {
+  &::after {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-  }
-  &::before {
-    z-index: 2;
     content: "";
-    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 75%, $app-bg 95%);
+    height: 100%;
+    width: 100%;
+    left: 0;
+    background: linear-gradient(top, #0005 50%, $app-bg);
   }
 
   img {
