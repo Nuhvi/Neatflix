@@ -32,9 +32,13 @@ export default {
   data() {
     return {
       swiperOption: {
+        effect: "fade",
+        keyboard: {
+          enabled: true
+        },
         autoplay: {
           delay: 2500,
-          disableOnInteraction: true
+          disableOnInteraction: false
         },
         pagination: {
           el: ".swiper-pagination",
