@@ -52,8 +52,6 @@ export default {
   margin: auto;
   overflow: hidden;
 
-  height: 50vh;
-
   .swiper {
     height: 100%;
   }
@@ -84,10 +82,6 @@ export default {
         background: white;
       }
     }
-  }
-
-  @media (min-width: $md) {
-    height: 80vh;
   }
 }
 </style>

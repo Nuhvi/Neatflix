@@ -76,6 +76,12 @@ export default {
 
   overflow: hidden;
 
+  height: 50vh;
+
+  @media (min-width: $md) {
+    height: 80vh;
+  }
+
   &::after,
   &::before {
     position: absolute;

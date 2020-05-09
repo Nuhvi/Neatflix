@@ -32,6 +32,7 @@ export const createMovieItem = (movie: any, context: any): { id: number } => ({
   detailed: false,
   ...movie,
   title: sanitize(movie.title),
+  rating: movie.vote_average.toFixed(1),
   route: `/movie/${movie.id}/${slugify(movie.title)}`,
   genreNames: genreNames(movie, "movie", context),
   ...getImages(movie, context)
@@ -41,6 +42,7 @@ export const createTVItem = (tvItem: any, context: any): { id: number } => ({
   detailed: false,
   ...tvItem,
   title: sanitize(tvItem.title || tvItem.original_name),
+  rating: tvItem.vote_average.toFixed(1),
   route: `/tv/${tvItem.id}/${slugify(tvItem.title || tvItem.original_name)}`,
   genreNames: genreNames(tvItem, "tv", context),
   ...getImages(tvItem, context)
