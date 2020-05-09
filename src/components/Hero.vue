@@ -21,22 +21,8 @@
           </p>
           <p class="overview">{{ truncatedOverview }}</p>
           <div class="cta">
-            <router-link class="hero_btn red" :to="this.item.route">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 494.148 494.148">
-                <path
-                  d="M405.284 201.188L130.804 13.28C118.128 4.596 105.356 0 94.74 0 74.216 0 61.52 16.472 61.52 44.044v406.124c0 27.54 12.68 43.98 33.156 43.98 10.632 0 23.2-4.6 35.904-13.308l274.608-187.904c17.66-12.104 27.44-28.392 27.44-45.884.004-17.48-9.664-33.764-27.344-45.864z"
-                />
-              </svg>
-              <span>watch</span>
-            </router-link>
-            <button class="hero_btn">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 469.33333 469.33333">
-                <path
-                  d="m437.332031 192h-160v-160c0-17.664062-14.335937-32-32-32h-21.332031c-17.664062 0-32 14.335938-32 32v160h-160c-17.664062 0-32 14.335938-32 32v21.332031c0 17.664063 14.335938 32 32 32h160v160c0 17.664063 14.335938 32 32 32h21.332031c17.664063 0 32-14.335937 32-32v-160h160c17.664063 0 32-14.335937 32-32v-21.332031c0-17.664062-14.335937-32-32-32zm0 0"
-                />
-              </svg>
-              <span>Add to list</span>
-            </button>
+            <WatchBtn :route="this.item.route"></WatchBtn>
+            <AddToListBtn></AddToListBtn>
           </div>
         </div>
       </article>
@@ -50,24 +36,27 @@
 <script>
 import { joinWithCol, truncate } from "@/utils";
 import Spinner from "@/components/Spinner";
+import WatchBtn from "@/components/WatchBtn";
+import AddToListBtn from "@/components/AddToListBtn";
 
 export default {
   name: "Hero",
   props: ["item", "empty"],
   components: {
-    Spinner
+    Spinner,
+    WatchBtn,
+    AddToListBtn
   },
   data() {
     return {
-      formatedGenres:
-        this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
+      formatedGenres: this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
       truncatedOverview: this.item && truncate(this.item.overview, 200)
     };
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .hero {
   position: relative;
   width: 100%;
@@ -93,11 +82,7 @@ export default {
   &::before {
     z-index: 2;
     content: "";
-    background-image: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.5) 75%,
-      $app-bg 95%
-    );
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 75%, $app-bg 95%);
   }
 
   img {
@@ -184,39 +169,6 @@ export default {
       }
     }
 
-    .hero_btn {
-      cursor: pointer;
-      border: none;
-      text-transform: capitalize;
-
-      display: flex;
-      align-items: center;
-      padding: 1em;
-
-      background: black;
-      color: white;
-      border-radius: 2em;
-
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-
-      transition: transform ease 0.1s;
-
-      svg {
-        fill: currentColor;
-        height: 1em;
-        margin-right: 0.5em;
-      }
-
-      &.red {
-        background: red;
-        box-shadow: 0 0 10px rgba(255, 0, 0, 1);
-      }
-
-      &:hover {
-        transform: translateY(-2px);
-      }
-    }
-
     .overview {
       font-size: 0.55em;
       font-weight: normal;
@@ -226,6 +178,7 @@ export default {
     }
   }
 }
+
 .appear-active {
   transition: all 0.5s ease;
 }

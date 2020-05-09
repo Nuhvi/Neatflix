@@ -1,4 +1,4 @@
-# neatflix
+# Neatflix
 
 Explore what to watch tonight!
 

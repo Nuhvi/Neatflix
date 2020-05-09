@@ -48,6 +48,10 @@ figure {
       h3 {
         font-weight: 500;
       }
+
+      .hero_btn {
+        font-size: 0.8em;
+      }
     }
 
     img {
@@ -62,7 +66,6 @@ figure {
       z-index: 999999;
       border-radius: 0.5em;
       box-shadow: 0rem 1em 2em rgba(0, 0, 0, 1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
 
       @keyframes pop {
         0% {

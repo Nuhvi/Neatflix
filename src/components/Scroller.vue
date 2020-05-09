@@ -119,7 +119,7 @@ $slide: ".swiper-slide";
 /* Customize Swiper buttons */
 .swiper-button-next,
 .swiper-button-prev {
-  width: 2.5em;
+  width: 3em;
   height: 100%;
   top: 1.4em;
   left: 0;
@@ -128,10 +128,19 @@ $slide: ".swiper-slide";
     color: rgba(243, 243, 243, 0.6);
     font-size: 2em;
   }
+
+  @media (min-width: $lg) {
+    width: 4em;
+    left: -4em;
+  }
 }
 .swiper-button-next {
   left: auto;
   right: 0;
+
+  @media (min-width: $lg) {
+    right: -4em;
+  }
 }
 
 .swiper-button-disabled {
