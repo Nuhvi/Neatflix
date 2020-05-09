@@ -32,6 +32,7 @@ figure {
     width: 100%;
     padding-top: 150%;
     background: $app-bg;
+    border-radius: 0.5em;
 
     .overlay {
       position: absolute;
@@ -64,7 +65,6 @@ figure {
 
     &:hover {
       z-index: 999999;
-      border-radius: 0.5em;
       box-shadow: 0rem 1em 2em rgba(0, 0, 0, 1);
 
       @keyframes pop {

@@ -1,14 +1,16 @@
 <template>
-  <section class="list">
+  <section class="list" v-if="items.length > 0">
     <Heading>{{ title }}</Heading>
-    <swiper class="swiper" :options="swiperOption" v-if="items.length > 0">
+    <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="item in items" :key="item.id">
         <Card :item="item" />
       </swiper-slide>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
     </swiper>
-    <swiper class="swiper" :options="swiperOption" v-else-if="isLoading">
+  </section>
+  <section class="list" v-else-if="isLoading">
+    <swiper class="swiper" :options="swiperOption">
       <Spinner></Spinner>
     </swiper>
   </section>
@@ -40,7 +42,7 @@ export default {
       swiperOption: {
         lazy: true,
         loop: false,
-        spaceBetween: 0,
+        spaceBetween: 20,
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
@@ -91,8 +93,7 @@ $slide: ".swiper-slide";
   visibility: hidden;
   z-index: 1;
 
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out,
-    z-index 0.1s ease-in-out;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, z-index 0.1s ease-in-out;
 
   &-active {
     opacity: 1;
