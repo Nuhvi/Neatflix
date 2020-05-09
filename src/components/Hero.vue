@@ -1,39 +1,46 @@
 <template>
-  <div class="hero " v-if="!empty">
+  <div class="hero" v-if="!empty">
     <img :src="this.item.backdropPath" :alt="this.item.title + ' backdrop'" />
-    <article role="article">
-      <div class="container">
-        <h2>{{ this.item.title }}</h2>
-        <p class="stars_genres">
-          <span class="stars">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-              <path fill="#F8D64E" d="M48 234L121 8l73 226L2 94h238z" />
-            </svg>
-            <span class="vote_average">{{ item.vote_average }}</span>
-            <span class="genres" v-if="item.genreNames">{{ formatedGenres }}</span>
-          </span>
-        </p>
-        <p class="overview">{{ truncatedOverview }}</p>
-        <div class="cta">
-          <router-link class="hero_btn red" :to="this.item.route">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 494.148 494.148">
-              <path
-                d="M405.284 201.188L130.804 13.28C118.128 4.596 105.356 0 94.74 0 74.216 0 61.52 16.472 61.52 44.044v406.124c0 27.54 12.68 43.98 33.156 43.98 10.632 0 23.2-4.6 35.904-13.308l274.608-187.904c17.66-12.104 27.44-28.392 27.44-45.884.004-17.48-9.664-33.764-27.344-45.864z"
-              />
-            </svg>
-            <span>watch</span>
-          </router-link>
-          <button class="hero_btn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 469.33333 469.33333">
-              <path
-                d="m437.332031 192h-160v-160c0-17.664062-14.335937-32-32-32h-21.332031c-17.664062 0-32 14.335938-32 32v160h-160c-17.664062 0-32 14.335938-32 32v21.332031c0 17.664063 14.335938 32 32 32h160v160c0 17.664063 14.335938 32 32 32h21.332031c17.664063 0 32-14.335937 32-32v-160h160c17.664063 0 32-14.335937 32-32v-21.332031c0-17.664062-14.335937-32-32-32zm0 0"
-              />
-            </svg>
-            <span>Add to list</span>
-          </button>
+    <transition
+      appear
+      appear-class="appear"
+      appear-to-class="appear-to"
+      appear-active-class="appear-active"
+    >
+      <article role="article">
+        <div class="container">
+          <h2>{{ this.item.title }}</h2>
+          <p class="stars_genres">
+            <span class="stars">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+                <path fill="#F8D64E" d="M48 234L121 8l73 226L2 94h238z" />
+              </svg>
+              <span class="vote_average">{{ item.rating }}</span>
+              <span class="genres" v-if="item.genreNames">{{ formatedGenres }}</span>
+            </span>
+          </p>
+          <p class="overview">{{ truncatedOverview }}</p>
+          <div class="cta">
+            <router-link class="hero_btn red" :to="this.item.route">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 494.148 494.148">
+                <path
+                  d="M405.284 201.188L130.804 13.28C118.128 4.596 105.356 0 94.74 0 74.216 0 61.52 16.472 61.52 44.044v406.124c0 27.54 12.68 43.98 33.156 43.98 10.632 0 23.2-4.6 35.904-13.308l274.608-187.904c17.66-12.104 27.44-28.392 27.44-45.884.004-17.48-9.664-33.764-27.344-45.864z"
+                />
+              </svg>
+              <span>watch</span>
+            </router-link>
+            <button class="hero_btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 469.33333 469.33333">
+                <path
+                  d="m437.332031 192h-160v-160c0-17.664062-14.335937-32-32-32h-21.332031c-17.664062 0-32 14.335938-32 32v160h-160c-17.664062 0-32 14.335938-32 32v21.332031c0 17.664063 14.335938 32 32 32h160v160c0 17.664063 14.335938 32 32 32h21.332031c17.664063 0 32-14.335937 32-32v-160h160c17.664063 0 32-14.335937 32-32v-21.332031c0-17.664062-14.335937-32-32-32zm0 0"
+                />
+              </svg>
+              <span>Add to list</span>
+            </button>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </transition>
   </div>
   <div class="hero" v-else>
     <Spinner></Spinner>
@@ -52,7 +59,8 @@ export default {
   },
   data() {
     return {
-      formatedGenres: this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
+      formatedGenres:
+        this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
       truncatedOverview: this.item && truncate(this.item.overview, 200)
     };
   }
@@ -79,7 +87,11 @@ export default {
   &::before {
     z-index: 2;
     content: "";
-    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 75%, $app-bg 95%);
+    background-image: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.5) 75%,
+      $app-bg 95%
+    );
   }
 
   img {
@@ -207,5 +219,18 @@ export default {
       line-height: 1.5;
     }
   }
+}
+.appear-active {
+  transition: all 0.5s ease;
+}
+
+.appear {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.appear-to {
+  opacity: 1;
+  transform: translateX(0);
 }
 </style>
