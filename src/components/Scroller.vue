@@ -1,12 +1,15 @@
 <template>
   <section class="list">
     <Heading>{{ title }}</Heading>
-    <swiper class="swiper" :options="swiperOption">
+    <swiper class="swiper" :options="swiperOption" v-if="items.length > 0">
       <swiper-slide v-for="item in items" :key="item.id">
-        <Card :item="item" detailed hoverable />
+        <Card :item="item" />
       </swiper-slide>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
+    </swiper>
+    <swiper class="swiper" :options="swiperOption" v-else-if="isLoading">
+      <Spinner></Spinner>
     </swiper>
   </section>
 </template>
@@ -14,6 +17,7 @@
 <script>
 import Card from "@/components/Card";
 import Heading from "@/components/Heading";
+import Spinner from "@/components/Spinner";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
@@ -21,20 +25,22 @@ export default {
   name: "Scroller",
   props: {
     title: String,
-    items: Array
+    items: Array,
+    isLoading: Boolean
   },
   components: {
     Swiper,
     SwiperSlide,
     Heading,
-    Card
+    Card,
+    Spinner
   },
   data() {
     return {
       swiperOption: {
         lazy: true,
         loop: false,
-        spaceBetween: 1,
+        spaceBetween: 0,
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
@@ -85,7 +91,8 @@ $slide: ".swiper-slide";
   visibility: hidden;
   z-index: 1;
 
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, z-index 0.1s ease-in-out;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out,
+    z-index 0.1s ease-in-out;
 
   &-active {
     opacity: 1;

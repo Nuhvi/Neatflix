@@ -1,17 +1,16 @@
 <template>
-  <router-link
-    class="card"
-    v-bind:class="{ detailed: detailed, hoverable: hoverable, lightenable: lightenable }"
-    :to="this.item.route || ''"
-  >
+  <router-link class="card" :to="this.item.route || ''">
     <figure>
-      <img :src="this.item.cardPath" :alt="this.item.title + ' poster'" />
-      <div class="overlay">
-        <figcaption>
+      <div class="image">
+        <img :src="this.item.cardPath" :alt="this.item.title + ' poster'" />
+        <div class="overlay">
           <h3>{{ this.item.title }}</h3>
-          <p>{{ item.release_date || item.first_air_date }}</p>
-        </figcaption>
+        </div>
       </div>
+      <figcaption>
+        <h3>{{ this.item.title }}</h3>
+        <p>{{ item.release_date || item.first_air_date }}</p>
+      </figcaption>
     </figure>
   </router-link>
 </template>
@@ -19,109 +18,91 @@
 <script>
 export default {
   name: "Card",
-  props: {
-    item: {},
-    hoverable: Boolean,
-    detailed: Boolean,
-    lightenable: Boolean
-  }
+  props: ["item"]
 };
 </script>
 
 <style lang="scss" scoped>
-.card {
-  display: block;
+figure {
+  margin: 0;
 
-  figure {
-    top: 0;
-    left: 0;
-    margin: 0;
+  .image {
+    overflow: hidden;
     position: relative;
+    width: 100%;
     padding-top: 150%;
+    background: $app-bg;
+
+    .overlay {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      opacity: 0;
+
+      padding: 0 1em;
+      color: white;
+      text-align: left;
+      font-size: 1em;
+
+      h3 {
+        font-weight: 500;
+      }
+    }
 
     img {
       display: block;
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
       height: 100%;
-    }
-
-    .overlay {
-      position: absolute;
+      width: 100%;
       top: 0;
-      width: 100%;
-      height: 100%;
-
-      transition: all 0.1s ease-in-out;
-      visibility: hidden;
     }
 
-    figcaption {
-      position: absolute;
-      width: 100%;
-      bottom: 0;
-
-      padding: 0.5em 1em;
-      padding-top: 5em;
-
-      color: rgba(255, 255, 255, 0.85);
-      background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.9) 0%,
-        rgba(0, 0, 0, 0.5) 70%,
-        rgba(0, 0, 0, 0) 100%
-      );
-
-      font-size: 0.8em;
-      text-align: left;
-
-      h3,
-      p {
-        margin: 0;
-      }
-
-      h3 {
-        font-weight: normal;
-      }
-      p {
-        font-size: 0.8em;
-        opacity: 0.5;
-      }
-    }
-  }
-
-  &.detailed {
     &:hover {
+      z-index: 999999;
+      border-radius: 0.5em;
+      box-shadow: 0rem 1em 2em rgba(0, 0, 0, 1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+
+      @keyframes pop {
+        0% {
+          transform: scale(1);
+        }
+        30% {
+          transform: scale(1.11);
+        }
+        100% {
+          transform: scale(1.1);
+        }
+      }
+
+      @media (min-width: $sm) {
+        animation: pop 0.5s both;
+      }
+
       .overlay {
-        visibility: visible;
         opacity: 1;
+      }
+
+      img {
+        filter: blur(20px) brightness(0.7);
       }
     }
   }
 
-  &.hoverable {
-    transition: all 0.1s ease-in-out;
+  figcaption {
+    padding: 1em;
+    color: rgba(255, 255, 255, 0.85);
 
-    @media screen and (min-width: $sm) {
-      &:hover {
-        overflow: hidden;
-        z-index: 999999;
-        transform: scale(1.1);
-        border-radius: 0.5em;
-        box-shadow: 0rem 1em 2em rgba(0, 0, 0, 1);
-      }
+    font-size: 0.8em;
+    text-align: left;
+
+    h3 {
+      margin: 0;
+      margin-bottom: 0.5em;
     }
-  }
-
-  &.lightenable {
-    opacity: 0.7;
-
-    @media screen and (min-width: $sm) {
-      &:hover {
-        opacity: 1;
-      }
+    p {
+      margin: 0;
     }
   }
 }

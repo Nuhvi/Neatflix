@@ -1,7 +1,12 @@
 <template>
   <div class="home">
-    <HeroScroll :items="HeroItems" :isLoading="HeroItemsLoading" limit="8"></HeroScroll>
-    <Scroller title="trending" :items="trending" type="movie"></Scroller>
+    <HeroScroll :items="HeroItems" :isLoading="TrendingLoading" limit="8"></HeroScroll>
+    <Scroller
+      title="trending"
+      :items="trending"
+      type="movie"
+      :isLoading="TrendingLoading"
+    ></Scroller>
     <Scroller title="Popular movies" :items="popularMovies" type="movie"></Scroller>
     <Scroller title="Popular Tv Shows" :items="popularTV" type="tv"></Scroller>
   </div>
@@ -34,11 +39,11 @@ export default {
     trending() {
       return this.$store.getters["trending/list"];
     },
+    TrendingLoading() {
+      return this.$store.state.trending.isLoading;
+    },
     HeroItems() {
       return this.$store.getters["trending/listByScore"];
-    },
-    HeroItemsLoading() {
-      return this.$store.state.trending.isLoading;
     }
   },
   methods: {
