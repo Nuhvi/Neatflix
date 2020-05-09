@@ -1,5 +1,5 @@
 <template>
-  <router-link class="card" :to="this.item.route || ''">
+  <div class="card">
     <figure>
       <div class="image">
         <img :src="this.item.cardPath" :alt="this.item.title + ' poster'" />
@@ -12,7 +12,7 @@
         <p>{{ item.release_date || item.first_air_date }}</p>
       </figcaption>
     </figure>
-  </router-link>
+  </div>
 </template>
 
 <script>
@@ -79,9 +79,7 @@ figure {
         }
       }
 
-      @media (min-width: $sm) {
-        animation: pop 0.5s both;
-      }
+      animation: pop 0.5s both;
 
       .overlay {
         opacity: 1;

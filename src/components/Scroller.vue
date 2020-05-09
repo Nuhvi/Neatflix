@@ -120,6 +120,8 @@ $slide: ".swiper-slide";
 /* Customize Swiper buttons */
 .swiper-button-next,
 .swiper-button-prev {
+  user-select: none;
+  z-index: 99999;
   width: 3em;
   height: 100%;
   top: 1.4em;
@@ -130,7 +132,7 @@ $slide: ".swiper-slide";
     font-size: 2em;
   }
 
-  @media (min-width: $lg) {
+  @media (min-width: $xl) {
     width: 4em;
     left: -4em;
   }
@@ -139,7 +141,7 @@ $slide: ".swiper-slide";
   left: auto;
   right: 0;
 
-  @media (min-width: $lg) {
+  @media (min-width: $xl) {
     right: -4em;
   }
 }
