@@ -1,21 +1,32 @@
 <template>
   <div class="home">
-    <HeroScroll :items="heroItems" :isLoading="trendingLoading" limit="8"></HeroScroll>
-
+    <HeroScroll :items="featured.list" :isLoading="featured.isLoading"></HeroScroll>
+    <Scroller title="trending" :items="trending.list" :isLoading="trending.isLoading"></Scroller>
     <Scroller
       title="Airing Tonight"
       :items="airingtTonight.list"
       :isLoading="airingtTonight.isLoading"
     ></Scroller>
-    <Scroller title="Upcoming movies" :items="upcoming.list" :isLoading="upcoming.isLoading"></Scroller>
-    <Scroller title="trending" :items="trending" :isLoading="trendingLoading"></Scroller>
+    <Scroller
+      title="Now in Theaters"
+      :items="nowPlaying.list"
+      :isLoading="nowPlaying.isLoading"
+    ></Scroller>
+    <Scroller
+      title="Upcoming movies"
+      :items="upcoming.list"
+      :isLoading="upcoming.isLoading"
+    ></Scroller>
     <Scroller
       title="Popular movies"
       :items="popularMovies.list"
       :isLoading="popularMovies.isLoading"
     ></Scroller>
-    <Scroller title="Popular Tv Shows" :items="popularTV.list" :isLoading="popularTV.isLoading"></Scroller>
-    <Scroller title="Now in Theaters" :items="nowPlaying.list" :isLoading="nowPlaying.isLoading"></Scroller>
+    <Scroller
+      title="Popular Tv Shows"
+      :items="popularTV.list"
+      :isLoading="popularTV.isLoading"
+    ></Scroller>
   </div>
 </template>
 
@@ -36,6 +47,7 @@ export default {
     Scroller
   },
   created() {
+    this.$store.dispatch("featured/fetch");
     this.$store.dispatch("trending/fetch");
     this.$store.dispatch("movies/fetchPopular");
     this.$store.dispatch("tv/fetchPopular");
@@ -44,14 +56,17 @@ export default {
     this.$store.dispatch("tv/fetchAiringTonight");
   },
   computed: {
+    featured() {
+      return {
+        isLoading: this.$store.state.featured.isLoading,
+        list: this.$store.getters["featured/list"]
+      };
+    },
     trending() {
-      return this.$store.getters["trending/list"];
-    },
-    trendingLoading() {
-      return this.$store.state.trending.isLoading;
-    },
-    heroItems() {
-      return this.$store.getters["trending/listByScore"];
+      return {
+        isLoading: this.$store.state.trending.isLoading,
+        list: this.$store.getters["trending/list"]
+      };
     },
     popularMovies() {
       return {

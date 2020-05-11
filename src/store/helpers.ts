@@ -37,9 +37,9 @@ const calculateScore = (item: any) => item["vote_average"] * item["vote_count"];
 export const createMovieItem = (movie: any, context: any): { id: number } => ({
   detailed: false,
   ...movie,
-  title: sanitize(movie.title),
+  title: sanitize(movie.title || movie.original_name),
   rating: movie.vote_average.toFixed(1),
-  route: `/movie/${movie.id}/${slugify(movie.title)}`,
+  route: `/movie/${movie.id}/${slugify(movie.title || movie.original_name)}`,
   genreNames: genreNames(movie, "movie", context),
   score: calculateScore(movie),
   ...getImages(movie, context)

@@ -64,12 +64,6 @@ export default {
           return rootState.movies.byId[item.id];
         }
       });
-    },
-    listByScore(state: State, getters: any) {
-      return [...getters.list].sort((a: any, b: any) => b.score - a.score);
-    },
-    isLoading(state: State) {
-      return state.isLoading;
     }
   }
 };

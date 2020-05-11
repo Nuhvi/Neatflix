@@ -4,7 +4,7 @@
   </div>
   <div class="hero_scroller" v-else>
     <swiper class="swiper" :options="swiperOption">
-      <swiper-slide v-for="item in limitedItems" :key="item.id">
+      <swiper-slide v-for="item in this.items" :key="item.id">
         <Hero :item="item" :more="true" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
@@ -23,12 +23,7 @@ export default {
     SwiperSlide,
     Hero
   },
-  props: ["items", "limit", "isLoading"],
-  computed: {
-    limitedItems() {
-      return this.items.slice(0, this.limit || 8);
-    }
-  },
+  props: ["items", "isLoading"],
   data() {
     return {
       swiperOption: {
