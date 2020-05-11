@@ -29,7 +29,7 @@ export default {
   font-size: 3em;
   margin-bottom: -0.35em;
   background: linear-gradient(
-    top,
+    to bottom,
     rgba(255, 0, 29, 1) 0%,
     rgba(254, 0, 79, 1) 100%
   );

@@ -2,7 +2,8 @@
   <router-link class="card" :to="route">
     <figure>
       <div class="image">
-        <img :src="this.item.cardPath" :alt="this.item.title + ' poster'" />
+        <img v-if="this.item.cardPath" :src="this.item.cardPath" :alt="this.item.title + ' poster'" />
+        <img v-else src="@/assets/poster_not_found.png" :alt="this.item.title + ' poster'" />
         <div class="overlay">
           <h3>{{ this.item.title }}</h3>
           <p>{{ truncatedOverview }}</p>

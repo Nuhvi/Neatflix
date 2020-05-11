@@ -93,7 +93,8 @@ $slide: ".swiper-slide";
   visibility: hidden;
   z-index: 1;
 
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, z-index 0.1s ease-in-out;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out,
+    z-index 0.1s ease-in-out;
 
   &-active {
     opacity: 1;
@@ -121,7 +122,7 @@ $slide: ".swiper-slide";
 .swiper-button-next,
 .swiper-button-prev {
   user-select: none;
-  z-index: 99999;
+  z-index: 9999999;
   width: 3em;
   height: 100%;
   top: 1.4em;

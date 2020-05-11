@@ -66,7 +66,7 @@ export default {
       });
     },
     listByScore(state: State, getters: any) {
-      return getters.list.sort((a: any, b: any) => b.vote_average - a.vote_average);
+      return [...getters.list].sort((a: any, b: any) => b.score - a.score);
     },
     isLoading(state: State) {
       return state.isLoading;

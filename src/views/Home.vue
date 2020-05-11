@@ -2,12 +2,7 @@
   <div class="home">
     <HeroScroll :items="heroItems" :isLoading="trendingLoading" limit="8"></HeroScroll>
 
-    <Scroller
-      title="trending"
-      :items="trending"
-      type="movie"
-      :isLoading="trendingLoading"
-    ></Scroller>
+    <Scroller title="trending" :items="trending" type="movie" :isLoading="trendingLoading"></Scroller>
     <Scroller
       title="Popular movies"
       :items="popularMovies.list"

@@ -1,6 +1,10 @@
 <template>
   <div class="hero" v-if="!empty">
-    <img :src="this.item.backdropPath" :alt="this.item.title + ' backdrop'" />
+    <img
+      v-if="this.item.backdropPath"
+      :src="this.item.backdropPath"
+      :alt="this.item.title + ' backdrop'"
+    />
     <transition
       appear
       appear-class="appear"
@@ -49,7 +53,8 @@ export default {
   },
   data() {
     return {
-      formatedGenres: this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
+      formatedGenres:
+        this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
       truncatedOverview: this.item && truncate(this.item.overview, 200)
     };
   }
@@ -77,7 +82,7 @@ export default {
     height: 100%;
     width: 100%;
     left: 0;
-    background: linear-gradient(top, #0005 50%, $app-bg);
+    background: linear-gradient(to bottom, #0005 50%, $app-bg);
   }
 
   img {
@@ -113,7 +118,7 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: start;
+      align-items: flex-start;
     }
 
     h2 {
