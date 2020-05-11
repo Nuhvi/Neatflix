@@ -10,9 +10,7 @@
     </swiper>
   </section>
   <section class="list" v-else-if="isLoading">
-    <swiper class="swiper" :options="swiperOption">
-      <Spinner></Spinner>
-    </swiper>
+    <Spinner></Spinner>
   </section>
 </template>
 

@@ -2,37 +2,20 @@
   <div class="home">
     <HeroScroll :items="heroItems" :isLoading="trendingLoading" limit="8"></HeroScroll>
 
-    <Scroller title="trending" :items="trending" type="movie" :isLoading="trendingLoading"></Scroller>
-    <Scroller
-      title="Popular movies"
-      :items="popularMovies.list"
-      type="movie"
-      :isLoading="popularMovies.isLoading"
-    ></Scroller>
-    <Scroller
-      title="Popular Tv Shows"
-      :items="popularTV.list"
-      type="tv"
-      :isLoading="popularTV.isLoading"
-    ></Scroller>
-    <Scroller
-      title="Now in Theaters"
-      :items="nowPlaying.list"
-      type="tv"
-      :isLoading="nowPlaying.isLoading"
-    ></Scroller>
     <Scroller
       title="Airing Tonight"
       :items="airingtTonight.list"
-      type="tv"
       :isLoading="airingtTonight.isLoading"
     ></Scroller>
+    <Scroller title="Upcoming movies" :items="upcoming.list" :isLoading="upcoming.isLoading"></Scroller>
+    <Scroller title="trending" :items="trending" :isLoading="trendingLoading"></Scroller>
     <Scroller
-      title="Upcoming movies"
-      :items="upcoming.list"
-      type="tv"
-      :isLoading="upcoming.isLoading"
+      title="Popular movies"
+      :items="popularMovies.list"
+      :isLoading="popularMovies.isLoading"
     ></Scroller>
+    <Scroller title="Popular Tv Shows" :items="popularTV.list" :isLoading="popularTV.isLoading"></Scroller>
+    <Scroller title="Now in Theaters" :items="nowPlaying.list" :isLoading="nowPlaying.isLoading"></Scroller>
   </div>
 </template>
 
