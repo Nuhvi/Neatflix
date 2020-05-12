@@ -1,5 +1,6 @@
 import MDB from "@/api/MDB";
 import { mapIdToSelf, createTVItem } from "./helpers";
+import { GenericItem } from "./types";
 
 interface TV {
   id: number;
@@ -63,6 +64,9 @@ export default {
     },
     ADD_TRAILER(state: State, payload: { id: number; trailerPath: string }) {
       state.byId[payload.id]["trailerPath"] = payload.trailerPath;
+    },
+    UPDATE_ONE(state: State, payload: GenericItem) {
+      state.byId[payload.id] = { ...state.byId[payload.id], ...payload };
     }
   },
   actions: {

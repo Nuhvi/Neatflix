@@ -1,5 +1,5 @@
 import MDB from "@/api/MDB";
-import { RootState, TrendingState, TrendingItem } from "./types";
+import { RootState, TrendingState, GenericItem } from "./types";
 
 interface Context {
   commit: Function;
@@ -17,7 +17,7 @@ export default {
     list: []
   },
   mutations: {
-    SET_ID_LIST(state: TrendingState, payload: [TrendingItem]) {
+    SET_ID_LIST(state: TrendingState, payload: [GenericItem]) {
       state.list = payload;
     },
     START_LOADING(state: TrendingState) {
@@ -59,7 +59,7 @@ export default {
   },
   getters: {
     list(state: TrendingState, getters: [], rootState: RootState) {
-      return state.list.map((item: TrendingItem) => {
+      return state.list.map((item: GenericItem) => {
         if (item.mediaType === "tv") {
           return rootState.tv.byId[item.id];
         } else {

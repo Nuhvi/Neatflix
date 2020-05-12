@@ -42,7 +42,7 @@ export default {
 .hero_btn {
   cursor: pointer;
   border: none;
-  text-transform: uppercase;
+  text-transform: capitalize;
 
   display: flex;
   align-items: center;

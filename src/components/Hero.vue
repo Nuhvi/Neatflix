@@ -13,7 +13,11 @@
     >
       <article role="article">
         <div class="container">
-          <h2>{{ this.item.title }}</h2>
+          <h2>
+            {{ item.title }}
+
+            <AddBtns :item="this.item"></AddBtns>
+          </h2>
           <p class="stars_genres">
             <span class="stars">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
@@ -42,6 +46,7 @@ import { joinWithCol, truncate } from "@/utils";
 import Spinner from "@/components/Spinner";
 import WatchBtn from "@/components/WatchBtn";
 import MoreDetails from "@/components/MoreDetails";
+import AddBtns from "@/components/AddBtns";
 
 export default {
   name: "Hero",
@@ -49,6 +54,7 @@ export default {
   components: {
     Spinner,
     WatchBtn,
+    AddBtns,
     MoreDetails
   },
   data() {
@@ -73,6 +79,11 @@ export default {
 
   @media (min-width: $md) {
     height: 80vh;
+  }
+
+  .add_btns {
+    font-size: 0.3em;
+    margin: 0;
   }
 
   &::after {

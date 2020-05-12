@@ -17,13 +17,14 @@ export interface ConfigState {
   genres: {};
 }
 
-export interface TrendingItem {
+export interface GenericItem {
   id: number;
   mediaType: string;
+  isLiked: boolean;
 }
 
 export interface TrendingState {
-  list: [TrendingItem];
+  list: [GenericItem];
   isLoading: boolean;
 }
 

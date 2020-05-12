@@ -20,7 +20,6 @@ export default {
 .hero_btn {
   cursor: pointer;
   border: none;
-  text-transform: uppercase;
 
   display: flex;
   align-items: center;
