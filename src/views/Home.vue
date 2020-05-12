@@ -34,7 +34,6 @@
 
 <script>
 // @ is an alias to /src
-import MDB from "@/api/MDB";
 import HeroScroll from "@/components/HeroScroll";
 import Scroller from "@/components/Scroller";
 import store from "@/store";
@@ -47,13 +46,12 @@ export default {
     Scroller
   },
   created() {
-    this.$store.dispatch("featured/fetch");
-    this.$store.dispatch("trending/fetch");
-    this.$store.dispatch("movies/fetchPopular");
-    this.$store.dispatch("tv/fetchPopular");
-    this.$store.dispatch("movies/fetchUpcoming");
-    this.$store.dispatch("movies/fetchNowPlaying");
-    this.$store.dispatch("tv/fetchAiringTonight");
+    this.featured.list.length === 0 && this.$store.dispatch("featured/fetch");
+    this.popularMovies.list.length === 0 && this.$store.dispatch("movies/fetchPopular");
+    this.popularTV.list.length === 0 && this.$store.dispatch("tv/fetchPopular");
+    this.upcoming.list.length === 0 && this.$store.dispatch("movies/fetchUpcoming");
+    this.nowPlaying.list.length === 0 && this.$store.dispatch("movies/fetchNowPlaying");
+    this.airingtTonight.list.length === 0 && this.$store.dispatch("tv/fetchAiringTonight");
   },
   computed: {
     featured() {
@@ -97,12 +95,6 @@ export default {
         isLoading: this.$store.state.tv.airingTonight.isLoading,
         list: this.$store.getters["tv/airingTonight"]
       };
-    }
-  },
-  methods: {
-    loadData: async function() {
-      const resTV = await MDB.getPopularTV();
-      this.popularTV = resTV.data.results;
     }
   }
 };
