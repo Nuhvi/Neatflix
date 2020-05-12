@@ -18,7 +18,7 @@ export default (() => {
   const getPopularMovies = () => api.get("movie/popular");
   const getPopularTV = () => api.get("tv/popular");
   const getTrending = () => api.get("trending/all/week");
-  const getTrendingMovies = () => api.get("trending/movies/day");
+  const getTrendingMovies = () => api.get("trending/movie/day");
   const getTrendingTV = () => api.get("trending/tv/day");
   const getMoviesGenres = () => api.get("genre/movie/list");
   const getTvGenres = () => api.get("genre/tv/list");
@@ -26,6 +26,8 @@ export default (() => {
   const getUpcoming = () => api.get("movie/upcoming");
   const getNowPlaying = () => api.get("movie/now_playing");
   const getAiringTonight = () => api.get("tv/airing_today");
+  const getMoviesVideos = (id: string) => api.get(`movie/${id}/videos`);
+  const getTVVideos = (id: string) => api.get(`tv/${id}/videos`);
 
   return {
     discoverMovies,
@@ -42,6 +44,8 @@ export default (() => {
     getNowPlaying,
     getAiringTonight,
     getTrendingMovies,
-    getTrendingTV
+    getTrendingTV,
+    getMoviesVideos,
+    getTVVideos
   };
 })();

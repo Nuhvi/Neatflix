@@ -7,7 +7,6 @@ import featured from "./featured";
 import trending from "./trending";
 import movies from "./movies";
 import tv from "./tv";
-import trailer from "./trailer";
 
 Vue.use(Vuex);
 
@@ -17,8 +16,7 @@ const store = {
     trending,
     movies,
     tv,
-    global,
-    trailer
+    global
   },
   actions: {}
 };
