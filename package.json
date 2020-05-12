@@ -20,6 +20,7 @@
     "swiper": "^5.3.6",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.0",
+    "vue-js-modal": "^2.0.0-rc.3",
     "vue-router": "^3.1.5",
     "vuex": "^3.1.2"
   },
