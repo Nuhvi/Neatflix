@@ -30,6 +30,7 @@ export default {
   actions: {
     async fetch(context: Context) {
       context.commit("START_LOADING");
+
       const resTrending = await MDB.getTrending();
 
       const results = resTrending.data.results;

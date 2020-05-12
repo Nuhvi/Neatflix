@@ -42,6 +42,7 @@ export const createMovieItem = (movie: any, context: any): { id: number } => ({
   route: `/movie/${movie.id}/${slugify(movie.title || movie.original_name)}`,
   genreNames: genreNames(movie, "movie", context),
   score: calculateScore(movie),
+  mediaType: "movie",
   ...getImages(movie, context)
 });
 
@@ -53,5 +54,6 @@ export const createTVItem = (tvItem: any, context: any): { id: number } => ({
   route: `/tv/${tvItem.id}/${slugify(tvItem.title || tvItem.original_name)}`,
   genreNames: genreNames(tvItem, "tv", context),
   score: calculateScore(tvItem),
+  mediaType: "tv",
   ...getImages(tvItem, context)
 });

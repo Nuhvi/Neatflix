@@ -1,6 +1,8 @@
 <template>
   <div id="app">
+    <Trailer> </Trailer>
     <Header role="banner" />
+
     <main role="main" v-if="isLoading">
       <Spinner :isFullPage="true"></Spinner>
     </main>
@@ -15,6 +17,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Spinner from "@/components/Spinner";
+import Trailer from "@/components/Trailer";
 import store from "@/store";
 
 export default {
@@ -23,7 +26,8 @@ export default {
   components: {
     Header,
     Footer,
-    Spinner
+    Spinner,
+    Trailer
   },
   computed: {
     isLoading() {

@@ -3,6 +3,7 @@ import { mapIdToSelf, createTVItem } from "./helpers";
 
 interface TV {
   id: number;
+  trailerPath: string;
 }
 interface State {
   byId: [TV];
@@ -59,17 +60,19 @@ export default {
     },
     END_LOADING_AIRING_TONIGHT(state: State) {
       state.airingTonight.isLoading = false;
+    },
+    ADD_TRAILER(state: State, payload: { id: number; trailerPath: string }) {
+      state.byId[payload.id]["trailerPath"] = payload.trailerPath;
     }
   },
   actions: {
     update(context: Context, payload: [{ id: number }]) {
-      const standardized = payload.map((item: TV) => {
-        const movie = context.state.byId[item.id];
-        return movie ? movie : createTVItem(item, context);
+      const standardized = payload.map((item: { id: number }) => {
+        const tv = context.state.byId[item.id];
+        return tv ? tv : createTVItem(item, context);
       });
-      const map = mapIdToSelf(standardized);
 
-      context.commit("UPDATE", map);
+      context.commit("UPDATE", mapIdToSelf(standardized));
     },
     async fetchPopular(context: Context) {
       context.commit("START_LOADING_POPULAR");

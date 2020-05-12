@@ -1,5 +1,5 @@
 <template>
-  <section class="list" v-if="items.length > 0">
+  <section class="list" v-if="!isLoading">
     <Heading>{{ title }}</Heading>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="item in items" :key="item.id">
@@ -9,7 +9,7 @@
       <div class="swiper-button-next" slot="button-next"></div>
     </swiper>
   </section>
-  <section class="list" v-else-if="isLoading">
+  <section class="list" v-else>
     <Spinner></Spinner>
   </section>
 </template>
@@ -91,8 +91,7 @@ $slide: ".swiper-slide";
   visibility: hidden;
   z-index: 1;
 
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out,
-    z-index 0.1s ease-in-out;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, z-index 0.1s ease-in-out;
 
   &-active {
     opacity: 1;

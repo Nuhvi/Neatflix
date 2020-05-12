@@ -25,7 +25,7 @@
           </p>
           <p class="overview">{{ truncatedOverview }}</p>
           <div class="cta">
-            <WatchBtn :route="this.item.route"></WatchBtn>
+            <WatchBtn :id="this.item.id" :mediaType="this.item.mediaType"></WatchBtn>
             <MoreDetails :route="this.item.route" v-if="more"></MoreDetails>
           </div>
         </div>
@@ -53,8 +53,7 @@ export default {
   },
   data() {
     return {
-      formatedGenres:
-        this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
+      formatedGenres: this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
       truncatedOverview: this.item && truncate(this.item.overview, 200)
     };
   }

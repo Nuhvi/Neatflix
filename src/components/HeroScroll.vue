@@ -27,6 +27,7 @@ export default {
   data() {
     return {
       swiperOption: {
+        lazy: true,
         effect: "fade",
         keyboard: {
           enabled: true

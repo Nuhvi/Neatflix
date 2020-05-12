@@ -47,6 +47,7 @@ export default {
   },
   created() {
     this.featured.list.length === 0 && this.$store.dispatch("featured/fetch");
+    this.trending.list.length === 0 && this.$store.dispatch("trending/fetch");
     this.popularMovies.list.length === 0 && this.$store.dispatch("movies/fetchPopular");
     this.popularTV.list.length === 0 && this.$store.dispatch("tv/fetchPopular");
     this.upcoming.list.length === 0 && this.$store.dispatch("movies/fetchUpcoming");

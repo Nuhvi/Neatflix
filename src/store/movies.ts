@@ -2,6 +2,7 @@ import MDB from "@/api/MDB";
 import { mapIdToSelf, createMovieItem } from "./helpers";
 interface Movie {
   id: number;
+  trailerPath: string;
 }
 interface State {
   byId: [Movie];
@@ -66,6 +67,9 @@ export default {
     },
     END_LOADING_NOW_PLAYING(state: State) {
       state.nowPlaying.isLoading = false;
+    },
+    ADD_TRAILER(state: State, payload: { id: number; trailerPath: string }) {
+      state.byId[payload.id]["trailerPath"] = payload.trailerPath;
     }
   },
   actions: {
@@ -74,9 +78,8 @@ export default {
         const movie = context.state.byId[item.id];
         return movie ? movie : createMovieItem(item, context);
       });
-      const map = mapIdToSelf(standardized);
 
-      context.commit("UPDATE", map);
+      context.commit("UPDATE", mapIdToSelf(standardized));
     },
     async fetchPopular(context: any) {
       context.commit("START_LOADING_POPULAR");
