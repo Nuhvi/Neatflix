@@ -1,12 +1,13 @@
 import MDB from "@/api/MDB";
+import { RootState, TrendingState, TrendingItem } from "./types";
 
-interface TrendingItem {
-  id: number;
-  mediaType: string;
-}
-interface State {
-  list: [TrendingItem];
-  isLoading: boolean;
+interface Context {
+  commit: Function;
+  dispatch: Function;
+  getters: {};
+  rootGetters: {};
+  rootState: RootState;
+  state: TrendingState;
 }
 
 export default {
@@ -16,18 +17,18 @@ export default {
     list: []
   },
   mutations: {
-    SET_ID_LIST(state: State, payload: [TrendingItem]) {
+    SET_ID_LIST(state: TrendingState, payload: [TrendingItem]) {
       state.list = payload;
     },
-    START_LOADING(state: State) {
+    START_LOADING(state: TrendingState) {
       state.isLoading = true;
     },
-    END_LOADING(state: State) {
+    END_LOADING(state: TrendingState) {
       state.isLoading = false;
     }
   },
   actions: {
-    async fetch(context: any) {
+    async fetch(context: Context) {
       context.commit("START_LOADING");
       const resTrending = await MDB.getTrending();
 
@@ -42,13 +43,13 @@ export default {
 
       context.dispatch(
         "movies/update",
-        results.filter((item: any) => item.media_type === "movie"),
+        results.filter((item: { media_type: string }) => item.media_type === "movie"),
         { root: true }
       );
 
       context.dispatch(
         "tv/update",
-        results.filter((item: any) => item.media_type === "tv"),
+        results.filter((item: { media_type: string }) => item.media_type === "tv"),
         { root: true }
       );
 
@@ -56,7 +57,7 @@ export default {
     }
   },
   getters: {
-    list(state: State, getters: any, rootState: any) {
+    list(state: TrendingState, getters: [], rootState: RootState) {
       return state.list.map((item: TrendingItem) => {
         if (item.mediaType === "tv") {
           return rootState.tv.byId[item.id];

@@ -16,6 +16,15 @@ interface State {
   };
 }
 
+interface Context {
+  commit: Function;
+  dispatch: Function;
+  getters: {};
+  rootGetters: {};
+  rootState: {};
+  state: State;
+}
+
 export default {
   namespaced: true,
   state: {
@@ -30,7 +39,7 @@ export default {
     }
   },
   mutations: {
-    UPDATE(state: any, payload: any) {
+    UPDATE(state: State, payload: [TV]) {
       state.byId = { ...state.byId, ...payload };
     },
     START_LOADING_POPULAR(state: State) {
@@ -53,8 +62,8 @@ export default {
     }
   },
   actions: {
-    update(context: any, payload: [{ id: number }]) {
-      const standardized = payload.map((item: any) => {
+    update(context: Context, payload: [{ id: number }]) {
+      const standardized = payload.map((item: TV) => {
         const movie = context.state.byId[item.id];
         return movie ? movie : createTVItem(item, context);
       });
@@ -62,7 +71,7 @@ export default {
 
       context.commit("UPDATE", map);
     },
-    async fetchPopular(context: any) {
+    async fetchPopular(context: Context) {
       context.commit("START_LOADING_POPULAR");
       const resPopular = await MDB.getPopularTV();
 
@@ -75,7 +84,7 @@ export default {
 
       context.commit("END_LOADING_POPULAR");
     },
-    async fetchAiringTonight(context: any) {
+    async fetchAiringTonight(context: Context) {
       context.commit("START_LOADING_AIRING_TONIGHT");
       const resPopular = await MDB.getAiringTonight();
 

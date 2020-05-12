@@ -1,18 +1,7 @@
 import MDB from "@/api/MDB";
 import storage from "local-storage-fallback";
 import { mapIdToName } from "./helpers";
-
-interface Genre {
-  id: number;
-  name: string;
-}
-
-interface State {
-  staticCategories: [string];
-  isLoading: boolean;
-  base: {};
-  genres: {};
-}
+import { Genre, ConfigState } from "./types";
 
 export default {
   namespaced: true,
@@ -21,13 +10,13 @@ export default {
     genres: {}
   },
   mutations: {
-    START_LOADING(state: State) {
+    START_LOADING(state: ConfigState) {
       state.isLoading = true;
     },
-    END_LOADING(state: State) {
+    END_LOADING(state: ConfigState) {
       state.isLoading = false;
     },
-    SET_CONFIG(state: State, payload: any) {
+    SET_CONFIG(state: ConfigState, payload: any) {
       state.base = payload;
     },
     SET_GENRES(state: any, payload: { movie: [Genre]; tv: [Genre] }) {
