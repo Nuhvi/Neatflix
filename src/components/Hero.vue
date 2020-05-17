@@ -15,7 +15,6 @@
         <div class="container">
           <h2>
             {{ item.title }}
-
             <AddBtns :item="this.item"></AddBtns>
           </h2>
           <p class="stars_genres">
@@ -59,7 +58,8 @@ export default {
   },
   data() {
     return {
-      formatedGenres: this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
+      formatedGenres:
+        this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
       truncatedOverview: this.item && truncate(this.item.overview, 200)
     };
   }

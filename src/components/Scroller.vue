@@ -1,7 +1,13 @@
 <template>
-  <section class="list" v-if="!isLoading">
+  <section class="list">
     <Heading>{{ title }}</Heading>
-    <swiper class="swiper" :options="swiperOption">
+
+    <swiper class="swiper" :options="swiperOption" v-if="isLoading">
+      <swiper-slide class="skeleton-card" v-for="x in [1,2,3,4,5,6]" :key="x">
+        <Card :isSkeleton="true"></Card>
+      </swiper-slide>
+    </swiper>
+    <swiper class="swiper" :options="swiperOption" v-else>
       <swiper-slide v-for="item in items" :key="item.id">
         <Card :item="item" />
       </swiper-slide>
@@ -9,15 +15,11 @@
       <div class="swiper-button-next" slot="button-next"></div>
     </swiper>
   </section>
-  <section class="list" v-else>
-    <Spinner></Spinner>
-  </section>
 </template>
 
 <script>
 import Card from "@/components/Card";
 import Heading from "@/components/Heading";
-import Spinner from "@/components/Spinner";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
@@ -32,8 +34,7 @@ export default {
     Swiper,
     SwiperSlide,
     Heading,
-    Card,
-    Spinner
+    Card
   },
   data() {
     return {
@@ -91,7 +92,8 @@ $slide: ".swiper-slide";
   visibility: hidden;
   z-index: 1;
 
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, z-index 0.1s ease-in-out;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out,
+    z-index 0.1s ease-in-out;
 
   &-active {
     opacity: 1;

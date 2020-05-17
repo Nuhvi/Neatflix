@@ -1,5 +1,10 @@
 <template>
-  <router-link class="card" :to="route">
+  <div class="skeleton-card" v-if="isSkeleton">
+    <div class="image"></div>
+    <div class="title"></div>
+    <div class="data"></div>
+  </div>
+  <router-link class="card" :to="route" v-else>
     <figure>
       <div class="image">
         <img v-if="item.cardPath" :src="item.cardPath" :alt="item.title + ' poster'" />
@@ -58,7 +63,7 @@ import store from "@/store";
 
 export default {
   name: "Card",
-  props: ["item"],
+  props: ["item", "isSkeleton"],
   store,
   components: {
     WatchBtn,
@@ -88,16 +93,19 @@ export default {
   }
 }
 
+.image {
+  width: 100%;
+  padding-top: 150%;
+  background: $app-bg;
+  border-radius: 0.5em;
+}
+
 figure {
   margin: 0;
 
   .image {
     overflow: hidden;
     position: relative;
-    width: 100%;
-    padding-top: 150%;
-    background: $app-bg;
-    border-radius: 0.5em;
 
     .overlay {
       position: absolute;
@@ -220,19 +228,53 @@ figure {
     }
   }
 }
-svg {
-  height: 1em;
-  fill: currentColor;
-  &.active {
-    &.red {
-      fill: #e0332c;
+.details {
+  svg {
+    height: 1em;
+    fill: currentColor;
+    &.active {
+      &.red {
+        fill: #e0332c;
+      }
+      &.green {
+        fill: #2ce04a;
+      }
+      &.blue {
+        fill: #2c80e0;
+      }
     }
-    &.green {
-      fill: #2ce04a;
+  }
+}
+
+.skeleton-card {
+  @keyframes loading {
+    0% {
+      background: #323232;
     }
-    &.blue {
-      fill: #2c80e0;
+    50% {
+      background: #3d3d3d;
     }
+    100% {
+      background: #323232;
+    }
+  }
+
+  .image,
+  .title,
+  .data {
+    animation: loading 1s infinite;
+  }
+
+  .title,
+  .data {
+    margin-top: 0.5em;
+    border-radius: 0.2em;
+    padding-top: 1em;
+    width: 70%;
+  }
+
+  .data {
+    width: 90%;
   }
 }
 </style>

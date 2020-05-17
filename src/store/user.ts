@@ -1,5 +1,5 @@
 import { GenericItem, RootState } from "./types";
-
+import storage from "local-storage-fallback";
 interface State {
   likes: { [id: string]: true };
   listed: { [id: string]: true };
@@ -14,6 +14,10 @@ interface Context {
   rootState: RootState;
   state: State;
 }
+
+const updateStorage = (data: State) => {
+  storage.setItem("user", JSON.stringify(data));
+};
 
 export default {
   namespaced: true,
@@ -51,12 +55,15 @@ export default {
   actions: {
     like(context: any, payload: GenericItem) {
       context.commit("SWITCH_LIKE", payload.id);
+      updateStorage(context.state);
     },
     watch(context: any, payload: GenericItem) {
       context.commit("SWITCH_WATCHED", payload.id);
+      updateStorage(context.state);
     },
     list(context: any, payload: GenericItem) {
       context.commit("SWITCH_LISTED", payload.id);
+      updateStorage(context.state);
     }
   },
   getters: {}
