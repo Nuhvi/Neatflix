@@ -15,7 +15,6 @@
         <div class="container">
           <h2>
             {{ item.title }}
-            <AddBtns :item="this.item"></AddBtns>
           </h2>
           <p class="stars_genres">
             <span class="stars">
@@ -26,6 +25,7 @@
               <span class="genres" v-if="item.genreNames">{{ formatedGenres }}</span>
             </span>
           </p>
+          <AddBtns :item="this.item"></AddBtns>
           <p class="overview">{{ truncatedOverview }}</p>
           <div class="cta">
             <WatchBtn :id="this.item.id" :mediaType="this.item.mediaType"></WatchBtn>
@@ -58,8 +58,7 @@ export default {
   },
   data() {
     return {
-      formatedGenres:
-        this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
+      formatedGenres: this.item && joinWithCol(this.item.genreNames.slice(0, 3)),
       truncatedOverview: this.item && truncate(this.item.overview, 200)
     };
   }
@@ -140,6 +139,12 @@ export default {
       }
     }
 
+    .stars_genres,
+    .overview,
+    .cta {
+      padding-left: 0.25em;
+    }
+
     .stars_genres {
       display: flex;
       text-align: left;
@@ -183,7 +188,7 @@ export default {
       font-size: 0.55em;
       font-weight: normal;
       text-align: left;
-      max-width: 60ch;
+      max-width: 55ch;
       line-height: 1.5;
     }
   }
