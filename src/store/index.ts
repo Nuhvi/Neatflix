@@ -1,8 +1,8 @@
 import Vue from "vue";
-import Vuex from "vuex";
+import Vuex, { StoreOptions } from "vuex";
 import { RootState } from "./types";
 
-import global from "./config";
+import config from "./config";
 import featured from "./featured";
 import trending from "./trending";
 import movies from "./movies";
@@ -12,17 +12,35 @@ import user from "./user";
 
 Vue.use(Vuex);
 
-const store = {
+const store: StoreOptions<RootState> = {
+  state: {
+    isLoading: false
+  },
+  mutations: {
+    START_LOADING(state: RootState) {
+      state.isLoading = true;
+    },
+    END_LOADING(state: RootState) {
+      state.isLoading = false;
+    }
+  },
   modules: {
     featured,
     trending,
     movies,
     tv,
-    global,
+    config,
     trailer,
     user
   },
-  actions: {}
+  actions: {
+    async init(context: any) {
+      context.commit("START_LOADING");
+      await context.dispatch("config/init");
+      await context.dispatch("user/init");
+      context.commit("END_LOADING");
+    }
+  }
 };
 
 export default new Vuex.Store<RootState>(store);

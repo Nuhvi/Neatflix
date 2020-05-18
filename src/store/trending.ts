@@ -1,4 +1,5 @@
 import MDB from "@/api/MDB";
+import { Module } from "vuex";
 import { RootState, TrendingState, GenericItem } from "./types";
 
 interface Context {
@@ -10,7 +11,7 @@ interface Context {
   state: TrendingState;
 }
 
-export default {
+const trendingModule: Module<TrendingState, RootState> = {
   namespaced: true,
   state: {
     isLoading: false,
@@ -35,10 +36,12 @@ export default {
 
       const results = resTrending.data.results;
 
-      const trendingList = results.map((item: { id: number; media_type: string }) => ({
-        id: item.id,
-        mediaType: item.media_type
-      }));
+      const trendingList = results.map(
+        (item: { id: number; media_type: string }): GenericItem => ({
+          id: item.id,
+          mediaType: item.media_type
+        })
+      );
 
       context.commit("SET_ID_LIST", trendingList);
 
@@ -61,11 +64,13 @@ export default {
     list(state: TrendingState, getters: [], rootState: RootState) {
       return state.list.map((item: GenericItem) => {
         if (item.mediaType === "tv") {
-          return rootState.tv.byId[item.id];
+          return rootState.tv?.byId[item.id];
         } else {
-          return rootState.movies.byId[item.id];
+          return rootState.movies?.byId[item.id];
         }
       });
     }
   }
 };
+
+export default trendingModule;

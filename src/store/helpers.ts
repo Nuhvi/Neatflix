@@ -15,13 +15,13 @@ const sanitize = (name: string) => (name.match(/^[^\(]+/) || [""])[0];
 const slugify = (name: string) => name.replace(/\s/g, "_");
 
 const genreNames = (item: { genre_ids: [number] }, type: string, context: any) => {
-  const genres = context.rootState.global.genres[type];
+  const genres = context.rootState.config.genres[type];
 
   return item["genre_ids"].map((id: number) => genres[id]);
 };
 
 const getImages = (item: any, context: any) => {
-  const imagesAPI = context.rootState.global.base.images;
+  const imagesAPI = context.rootState.config.base.images;
   return {
     backdropPath:
       item.backdrop_path &&

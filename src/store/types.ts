@@ -1,8 +1,7 @@
 export interface RootState {
-  config: ConfigState;
-  tv: TVState;
-  movies: MovieState;
-  trending: TrendingState;
+  isLoading: Boolean;
+  tv?: TVState;
+  movies?: MovieState;
 }
 
 export interface Genre {
@@ -20,11 +19,13 @@ export interface ConfigState {
 export interface GenericItem {
   id: number;
   mediaType: string;
-  isLiked: boolean;
+  isLiked?: boolean;
+  isWatched?: boolean;
+  isListed?: boolean;
 }
 
 export interface TrendingState {
-  list: [GenericItem];
+  list: GenericItem[];
   isLoading: boolean;
 }
 

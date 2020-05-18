@@ -6,16 +6,9 @@ import { Genre, ConfigState } from "./types";
 export default {
   namespaced: true,
   state: {
-    isLoading: false,
     genres: {}
   },
   mutations: {
-    START_LOADING(state: ConfigState) {
-      state.isLoading = true;
-    },
-    END_LOADING(state: ConfigState) {
-      state.isLoading = false;
-    },
     SET_CONFIG(state: ConfigState, payload: any) {
       state.base = payload;
     },
@@ -31,7 +24,6 @@ export default {
   },
   actions: {
     async init(context: any) {
-      context.commit("START_LOADING");
       const weekAgo = new Date(Date.now() - 604800000);
       const storedConfigDate = storage.getItem("config_cache_date");
 
@@ -49,7 +41,6 @@ export default {
         storage.setItem("genres", JSON.stringify(context.state.genres));
         storage.setItem("config_cache_date", new Date().toDateString());
       }
-      context.commit("END_LOADING");
     },
     async getConfig(context: any) {
       const res = await MDB.getConfig();

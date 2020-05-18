@@ -144,6 +144,7 @@ figure {
 
       .hero_btn {
         margin: auto;
+        margin-bottom: 2em;
         border-radius: 5em;
       }
     }
@@ -228,20 +229,24 @@ figure {
     }
   }
 }
+
 .details {
   svg {
     height: 1em;
-    fill: currentColor;
-    &.active {
-      &.red {
-        fill: #e0332c;
-      }
-      &.green {
-        fill: #2ce04a;
-      }
-      &.blue {
-        fill: #2c80e0;
-      }
+  }
+}
+
+svg {
+  fill: currentColor;
+  &.active {
+    &.red {
+      fill: #e0332c;
+    }
+    &.green {
+      fill: #2ce04a;
+    }
+    &.blue {
+      fill: #2c80e0;
     }
   }
 }

@@ -27,6 +27,11 @@ export default {
     watched: {}
   },
   mutations: {
+    SET_USER_DATA(state: State, payload: State) {
+      state.likes = payload.likes;
+      state.listed = payload.listed;
+      state.watched = payload.watched;
+    },
     SWITCH_LIKE(state: State, id: number) {
       if (state.likes[id]) {
         delete state.likes[id];
@@ -53,15 +58,20 @@ export default {
     }
   },
   actions: {
-    like(context: any, payload: GenericItem) {
+    async init(context: Context) {
+      const userData = storage.getItem("user");
+      if (!userData) return;
+      context.commit("SET_USER_DATA", JSON.parse(userData));
+    },
+    like(context: Context, payload: GenericItem) {
       context.commit("SWITCH_LIKE", payload.id);
       updateStorage(context.state);
     },
-    watch(context: any, payload: GenericItem) {
+    watch(context: Context, payload: GenericItem) {
       context.commit("SWITCH_WATCHED", payload.id);
       updateStorage(context.state);
     },
-    list(context: any, payload: GenericItem) {
+    list(context: Context, payload: GenericItem) {
       context.commit("SWITCH_LISTED", payload.id);
       updateStorage(context.state);
     }

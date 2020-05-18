@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Trailer> </Trailer>
+    <Trailer></Trailer>
     <Header role="banner" />
 
     <main role="main" v-if="isLoading">
@@ -31,11 +31,11 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.$store.state.global.isLoading;
+      return this.$store.state.isLoading;
     }
   },
   created() {
-    store.dispatch("global/init");
+    store.dispatch("init");
   }
 };
 </script>
