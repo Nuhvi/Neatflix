@@ -1,11 +1,7 @@
 import MDB from "@/api/MDB";
 import _ from "lodash";
-
-interface State {
-  listMovies: [number];
-  listTV: [number];
-  isLoading: boolean;
-}
+import { updateCachedData } from "@/utils";
+import { FeaturedState } from "./types";
 
 export default {
   namespaced: true,
@@ -15,16 +11,16 @@ export default {
     listMovies: []
   },
   mutations: {
-    SET_LIST_MOVIES(state: State, payload: [number]) {
+    SET_LIST_MOVIES(state: FeaturedState, payload: [number]) {
       state.listMovies = payload;
     },
-    SET_LIST_TV(state: State, payload: [number]) {
+    SET_LIST_TV(state: FeaturedState, payload: [number]) {
       state.listTV = payload;
     },
-    START_LOADING(state: State) {
+    START_LOADING(state: FeaturedState) {
       state.isLoading = true;
     },
-    END_LOADING(state: State) {
+    END_LOADING(state: FeaturedState) {
       state.isLoading = false;
     }
   },
@@ -50,17 +46,18 @@ export default {
       context.dispatch("tv/update", resultsresTrendingTV, { root: true });
 
       context.commit("END_LOADING");
+      updateCachedData(context.state, "featured");
     }
   },
   getters: {
-    listMovies(state: State, getters: any, rootState: any) {
+    listMovies(state: FeaturedState, getters: any, rootState: any) {
       return state.listMovies.map((id: number) => rootState.movies.byId[id]);
     },
-    listTV(state: State, getters: any, rootState: any) {
+    listTV(state: FeaturedState, getters: any, rootState: any) {
       return state.listTV.map((id: number) => rootState.tv.byId[id]);
     },
 
-    list(state: State, getters: any) {
+    list(state: FeaturedState, getters: any) {
       return _.sampleSize([...getters.listMovies, ...getters.listTV], 8);
     }
   }

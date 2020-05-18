@@ -1,6 +1,7 @@
 import MDB from "@/api/MDB";
 import { Module } from "vuex";
 import { RootState, TrendingState, GenericItem } from "./types";
+import { updateCachedData } from "@/utils";
 
 interface Context {
   commit: Function;
@@ -58,6 +59,7 @@ const trendingModule: Module<TrendingState, RootState> = {
       );
 
       context.commit("END_LOADING");
+      updateCachedData(context.state, "trending");
     }
   },
   getters: {

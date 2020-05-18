@@ -2,6 +2,7 @@ import MDB from "@/api/MDB";
 import storage from "local-storage-fallback";
 import { mapIdToName } from "./helpers";
 import { Genre, ConfigState } from "./types";
+import { isRecent } from "../utils/index";
 
 export default {
   namespaced: true,
@@ -24,10 +25,9 @@ export default {
   },
   actions: {
     async init(context: any) {
-      const weekAgo = new Date(Date.now() - 604800000);
       const storedConfigDate = storage.getItem("config_cache_date");
 
-      if (weekAgo < new Date(storedConfigDate || 0)) {
+      if (isRecent(storedConfigDate, 7)) {
         const configBase = storage.getItem("base");
         const genres = storage.getItem("genres");
 

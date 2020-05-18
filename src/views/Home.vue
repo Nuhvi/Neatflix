@@ -7,14 +7,26 @@
       :items="airingtTonight.list"
       :isLoading="airingtTonight.isLoading"
     ></Scroller>
-    <Scroller title="Now in Theaters" :items="nowPlaying.list" :isLoading="nowPlaying.isLoading"></Scroller>
-    <Scroller title="Upcoming movies" :items="upcoming.list" :isLoading="upcoming.isLoading"></Scroller>
+    <Scroller
+      title="Now in Theaters"
+      :items="nowPlaying.list"
+      :isLoading="nowPlaying.isLoading"
+    ></Scroller>
+    <Scroller
+      title="Upcoming movies"
+      :items="upcoming.list"
+      :isLoading="upcoming.isLoading"
+    ></Scroller>
     <Scroller
       title="Popular movies"
       :items="popularMovies.list"
       :isLoading="popularMovies.isLoading"
     ></Scroller>
-    <Scroller title="Popular Tv Shows" :items="popularTV.list" :isLoading="popularTV.isLoading"></Scroller>
+    <Scroller
+      title="Popular Tv Shows"
+      :items="popularTV.list"
+      :isLoading="popularTV.isLoading"
+    ></Scroller>
   </div>
 </template>
 
@@ -34,17 +46,14 @@ export default {
     Scroller
   },
   created() {
-    this.featured.list.length === 0 && this.$store.dispatch("featured/fetch");
-    this.trending.list.length === 0 && this.$store.dispatch("trending/fetch");
-    this.popularMovies.list.length === 0 &&
-      this.$store.dispatch("movies/fetchPopular");
-    this.popularTV.list.length === 0 && this.$store.dispatch("tv/fetchPopular");
-    this.upcoming.list.length === 0 &&
-      this.$store.dispatch("movies/fetchUpcoming");
-    this.nowPlaying.list.length === 0 &&
-      this.$store.dispatch("movies/fetchNowPlaying");
-    this.airingtTonight.list.length === 0 &&
-      this.$store.dispatch("tv/fetchAiringTonight");
+    if (this.$store.state.hasCachedData) return;
+    this.$store.dispatch("featured/fetch");
+    this.$store.dispatch("trending/fetch");
+    this.$store.dispatch("movies/fetchPopular");
+    this.$store.dispatch("tv/fetchPopular");
+    this.$store.dispatch("movies/fetchUpcoming");
+    this.$store.dispatch("movies/fetchNowPlaying");
+    this.$store.dispatch("tv/fetchAiringTonight");
   },
   computed: {
     featured() {

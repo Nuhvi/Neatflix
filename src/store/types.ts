@@ -1,7 +1,10 @@
 export interface RootState {
   isLoading: Boolean;
+  hasCachedData: Boolean;
   tv?: TVState;
   movies?: MovieState;
+  trending?: TrendingState;
+  featured?: FeaturedState;
 }
 
 export interface Genre {
@@ -26,6 +29,12 @@ export interface GenericItem {
 
 export interface TrendingState {
   list: GenericItem[];
+  isLoading: boolean;
+}
+
+export interface FeaturedState {
+  listMovies: [number];
+  listTV: [number];
   isLoading: boolean;
 }
 

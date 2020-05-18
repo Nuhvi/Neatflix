@@ -1,12 +1,6 @@
 import MDB from "@/api/MDB";
 import _ from "lodash";
 
-interface State {
-  listMovies: [number];
-  listTV: [number];
-  isLoading: boolean;
-}
-
 export default {
   namespaced: true,
   mutations: {},

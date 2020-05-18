@@ -1,6 +1,7 @@
 import MDB from "@/api/MDB";
 import { mapIdToSelf, createTVItem } from "./helpers";
 import { GenericItem } from "./types";
+import { updateCachedData } from "@/utils";
 
 interface TV {
   id: number;
@@ -43,6 +44,7 @@ export default {
   mutations: {
     UPDATE(state: State, payload: [TV]) {
       state.byId = { ...state.byId, ...payload };
+      updateCachedData(state, "tv");
     },
     START_LOADING_POPULAR(state: State) {
       state.popular.isLoading = true;
@@ -52,6 +54,7 @@ export default {
     },
     END_LOADING_POPULAR(state: State) {
       state.popular.isLoading = false;
+      updateCachedData(state, "tv");
     },
     START_LOADING_AIRING_TONIGHT(state: State) {
       state.airingTonight.isLoading = true;
@@ -61,12 +64,16 @@ export default {
     },
     END_LOADING_AIRING_TONIGHT(state: State) {
       state.airingTonight.isLoading = false;
+      updateCachedData(state, "tv");
+      updateCachedData(state, "tv");
     },
     ADD_TRAILER(state: State, payload: { id: number; trailerPath: string }) {
       state.byId[payload.id]["trailerPath"] = payload.trailerPath;
+      updateCachedData(state, "tv");
     },
     UPDATE_ONE(state: State, payload: GenericItem) {
       state.byId[payload.id] = { ...state.byId[payload.id], ...payload };
+      updateCachedData(state, "tv");
     }
   },
   actions: {

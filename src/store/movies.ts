@@ -1,6 +1,7 @@
 import MDB from "@/api/MDB";
 import { mapIdToSelf, createMovieItem } from "./helpers";
 import { GenericItem } from "./types";
+import { updateCachedData } from "@/utils";
 interface Movie {
   id: number;
   trailerPath: string;
@@ -39,8 +40,9 @@ export default {
     }
   },
   mutations: {
-    UPDATE(state: any, payload: any) {
+    UPDATE(state: State, payload: { key: Movie }) {
       state.byId = { ...state.byId, ...payload };
+      updateCachedData(state, "movies");
     },
     START_LOADING_POPULAR(state: State) {
       state.popular.isLoading = true;
@@ -50,6 +52,7 @@ export default {
     },
     END_LOADING_POPULAR(state: State) {
       state.popular.isLoading = false;
+      updateCachedData(state, "movies");
     },
     START_LOADING_UPCOMING(state: State) {
       state.upcoming.isLoading = true;
@@ -59,6 +62,7 @@ export default {
     },
     END_LOADING_UPCOMING(state: State) {
       state.upcoming.isLoading = false;
+      updateCachedData(state, "movies");
     },
     START_LOADING_NOW_PLAYING(state: State) {
       state.nowPlaying.isLoading = true;
@@ -68,12 +72,15 @@ export default {
     },
     END_LOADING_NOW_PLAYING(state: State) {
       state.nowPlaying.isLoading = false;
+      updateCachedData(state, "movies");
     },
     ADD_TRAILER(state: State, payload: { id: number; trailerPath: string }) {
       state.byId[payload.id]["trailerPath"] = payload.trailerPath;
+      updateCachedData(state, "movies");
     },
     UPDATE_ONE(state: State, payload: GenericItem) {
       state.byId[payload.id] = { ...state.byId[payload.id], ...payload };
+      updateCachedData(state, "movies");
     }
   },
   actions: {
@@ -97,6 +104,7 @@ export default {
       context.dispatch("movies/update", response.data.results, { root: true });
 
       context.commit("END_LOADING_POPULAR");
+      updateCachedData(context.state, "movies");
     },
     async fetchUpcoming(context: any) {
       context.commit("START_LOADING_UPCOMING");
